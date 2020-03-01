@@ -1,3 +1,5 @@
+## Source-list 
+[firestore.doc](https://firebase.google.com/docs/firestore/query-data/get-data)
 # Create firebase.utils.js:
 
     import firebase from 'firebase/app';
@@ -49,7 +51,12 @@
     
       export default firebase;  
 # Handling logic inside app.js: 
-
+## clear-cut:
+As soon as a new Firebase account is created, you’re in a logged-in state and user’s auth object(userAuth in app.js) is available inside onAuthStateChange() method.<br>
+[onSnapshot](https://firebase.google.com/docs/firestore/query-data/listen)<br>
+Using real-time sync we can access the currentUser data within our entire application.  
+    
+    import { auth, createUserProfileDocument } from './firebase/firebase.utils';
     class App extends React.Component {
       constructor() {
         super();
