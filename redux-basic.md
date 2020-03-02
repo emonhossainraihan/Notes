@@ -50,7 +50,15 @@
     }
     
     export default userReducer;
-In order to pass data to other components we need to rewrite our logic in `app.js`
+In order to pass data to other components we need to rewrite our logic in `app.js` Before that we need to pass the store to our app.js via `index.js`
+    
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
+    
+Then our `app.js` get store as props: 
 
     import { connect } from 'react-redux';
     import { setCurrentUser } from  './redux/user/user.actions';
