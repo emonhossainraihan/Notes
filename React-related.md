@@ -9,6 +9,12 @@
 - [List-rendering](#list-rendering)
 - [Controlled-Component](#controlled-component)
 - [Refs](#refs)
+- [Portal](#portal)
+- [Error-handling](#error-handling)
+- [HOC](#hoc)
+- [Context](#context)
+- [HTTP](#http)
+- [Event-preventDefault](#event-preventDefault)
 
 ## Props
 
@@ -320,7 +326,7 @@ class Form extends React.Component {
 }
 export default Form;
 ```
-# Refs :
+## Refs 
 Refs make it possible to access DOM nodes directly within React.
 ```js
 class Refs extends React.Component {
@@ -387,7 +393,201 @@ const ForwardRefs = React.forwardRef((props, ref) => {
 export default ForwardRefs;
 //the child element get ref from parent component
 ```
-# event.preventDefault()
+## Portal 
+```js
+import ReactDOM from "react-dom";
+
+function Portal() {
+  return ReactDOM.createPortal(
+    <h1>Portals demo</h1>,
+    document.getElementById("portal-root")
+  );
+}
+export default Portal;
+//break the normal flow of DOM
+```
+## Error-handling 
+```js
+class ErrorFix extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      hasError: false
+    };
+  }
+  static getDerivedStateFromError(error) {
+    return {
+      hasError: true
+    };
+  }
+componentDidCatch(error,info){
+  console.log(error)
+  console.log(info)
+}
+  render() {
+    if (this.state.hasError) {
+      //fallack UI
+      return <h1>Something went wrong</h1>;
+    }
+    return this.props.children;
+  }
+}
+export default ErrorFix;
+
+function EB({ heroname }) {
+  if (heroname === "Joker") {
+    throw new Error("Not a  hero");
+  }
+  return <div>{heroname}</div>;
+}
+export default EB;
+```
+In `app.js`:
+```html
+<ErrorFix>
+  <EB heroname="Batman" />
+  <EB heroname="joker" />
+</ErrorFix>
+```
+## HOC
+```js
+const withCounter = WrappedComponent => {
+  class withCounter extends React.Component {
+    constructor() {
+      super();
+      this.state = {
+        count: 0,
+        countSimplify: 0
+      };
+    }
+
+    incrementCount = () => {
+      this.setState(prevState => {
+        return { count: prevState.count + 1 };
+      });
+    };
+    render() {
+      return (
+        <WrappedComponent
+          count={this.state.count}
+          incrementCount={this.incrementCount}
+          {...this.props} //rest properties of props
+        />
+      );
+    }
+  }
+  return withCounter;
+};
+export default withCounter;
+```
+child component:
+```js
+import withCounter from "./withCounter";
+class ClickCounter extends React.Component {
+  render() {
+    const { count, incrementCount } = this.props;
+    return <button onClick={incrementCount}> Click {count} times</button>;
+  }
+}
+export default withCounter(ClickCounter);
+```
+## Context 
+```js
+const UserContext = React.createContext("Codevolution");
+
+const UserProvider = UserContext.Provider;
+const UserConsumer = UserContext.Consumer;
+
+export { UserProvider, UserConsumer };
+export default UserContext;
+```
+In `app.js`:
+```html
+import { UserProvider } from "./components/Context/UserContext";
+<UserProvider value="Emon Hossain">
+  <ComponentC />
+</UserProvider>
+```
+nested components :
+```js
+import ComponentE from "./ComponentE";
+class ComponentC extends React.Component {
+  render() {
+    return <ComponentE />;
+  }
+}
+export default ComponentC;
+
+import ComponentF from "./ComponentF";
+import UserContext from "./UserContext";
+class ComponentE extends React.Component {
+  render() {
+    return (
+      <div>
+        ComponentE context {this.context}
+        <ComponentF />
+      </div>
+    );
+  }
+}
+ComponentE.contextType = UserContext;
+export default ComponentE;
+
+import { UserConsumer } from "./UserContext";
+class ComponentF extends React.Component {
+  render() {
+    return (
+      <UserConsumer>
+        {username => {
+          return <div>Hello {username}</div>;
+        }}
+      </UserConsumer>
+    );
+  }
+}
+export default ComponentF;
+```
+## HTTP 
+```js
+import axios from "axios";
+class PostList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      posts: [],
+      errorMsg: ""
+    };
+  }
+  componentDidMount() {
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then(response => {
+        console.log(response);
+        this.setState({ posts: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({ errorMsg: "Error retreiving data" });
+      });
+  }
+  render() {
+    const { posts, errorMsg } = this.state;
+    return (
+      <div>
+        List of posts
+        {posts.length
+          ? posts.map(post => <div key={post.id}>{post.title}</div>)
+          : null}
+        {errorMsg ? <div>{errorMsg}</div> : null}
+      </div>
+    );
+  }
+}
+export default PostList;
+```
+
+## Event-preventDefault
+
 React uses synthetic events to handle events from button, input and form elements. A synthetic event is a shell around the native DOM event with additional information for React. Sometimes you have to use `event.preventDefault();` in your application.
 ```js
 import React from  'react';
