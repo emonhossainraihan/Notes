@@ -1,5 +1,5 @@
 ## Contents
-- [withRouter](#with-router)
+- [withRouter](#withrouter)
 
 ## withRouter
 
