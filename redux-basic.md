@@ -2,6 +2,7 @@
 - [Core-Concepts](#core-concepts)
 - [Principles](#principles)
 - [Demo-Principles](#demo-principles)
+- [Multiple-Reducers-Middleware](#multiple-reducers-middleware)
 - [Folder-structure](#folder-structure)
 - [My-Project](#my-project)
 ## Core-Concepts
@@ -72,7 +73,101 @@ store.dispatch(buyCake());
 
 unsubscribe();
 ```
+## Multiple-Reducers-Middleware
+```js
+const redux = require("redux");
 
+const createStore = redux.createStore; //creating store
+const combineReducers = redux.combineReducers; //combine our reducers
+
+//middleware
+const reduxLogger = require("redux-logger");
+const logger = reduxLogger.createLogger();
+const applyMiddleware = redux.applyMiddleware;
+
+const BUY_CAKE = "BUY_CAKE";
+const BUY_ICECREAM = "BUY_ICECREAM";
+
+// * action
+
+function buyCake() {
+  return {
+    type: BUY_CAKE,
+    info: "First redux action"
+  };
+}
+
+function buyIceCream() {
+  return {
+    type: BUY_ICECREAM
+  };
+}
+
+// state
+
+const initialCakeState = {
+  numOfCakes: 10
+};
+
+const initialIceCreamState = {
+  numOfIceCreams: 20
+};
+
+// Multiple reducers
+
+const cakeReducer = (state = initialCakeState, action) => {
+  switch (action.type) {
+    case BUY_CAKE:
+      return {
+        ...state, //copy state then change what it need
+        numOfCakes: state.numOfCakes - 1
+      };
+    default:
+      return state;
+  }
+};
+
+const iceCreamReducer = (state = initialIceCreamState, action) => {
+  switch (action.type) {
+    case BUY_ICECREAM:
+      return {
+        ...state,
+        numOfIceCreams: state.numOfIceCreams - 1
+      };
+    default:
+      return state;
+  }
+};
+
+// root reducer
+// accept a object with key value pair
+
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  iceCream: iceCreamReducer
+});
+
+// ! Store
+
+const store = createStore(rootReducer, applyMiddleware(logger));
+
+console.log("Initial state", store.getState());
+
+//run whenever our state update
+const unsubscribe = store.subscribe(() =>
+  //  logger middleware console out the action and updated state
+  {}
+);
+
+store.dispatch(buyCake());
+store.dispatch(buyIceCream());
+store.dispatch(buyCake());
+store.dispatch(buyIceCream());
+store.dispatch(buyCake());
+store.dispatch(buyIceCream());
+
+unsubscribe();
+```
 
 
 
