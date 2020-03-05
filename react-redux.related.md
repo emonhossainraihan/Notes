@@ -1,4 +1,5 @@
 In this project we will learn how to work with redux in react based project:
+- **React Redux pattern** : Action Creators, reducers, provide the store and connect the components. Components can access state ans dispatch actions.
 ## Contents
 - [File-Structure](#file-structure)
 - [Action](#action)
