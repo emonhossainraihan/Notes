@@ -3,6 +3,7 @@
 - [Principles](#principles)
 - [Demo-Principles](#demo-principles)
 - [Multiple-Reducers-Middleware](#multiple-reducers-middleware)
+- [Async-Actions](#async-actions)
 - [Folder-structure](#folder-structure)
 - [My-Project](#my-project)
 ## Core-Concepts
@@ -168,7 +169,35 @@ store.dispatch(buyIceCream());
 
 unsubscribe();
 ```
+## Async-Actions
+```js
+// state
+state = {
+    loading: true,
+    data: [],
+    error:''
+}
+```
+**loading** - Display a loading spinner in your Component <br>
+**data** - List of users <br>
+**error** - Display error to the user <br>
 
+### actions 
+
+**FETCH_USERS_REQUEST** - Fetch list of users <br>
+**FETCH_USERS_SUCCESS** - Fetched successfully <br>
+**FETCH_USERS_FAILURE** - Error fetching the data <br>
+
+### reducers 
+
+- case: **FETCH_USERS_REQUEST** <br>
+        loading: true  <br>
+- case: **FETCH_USERS_SUCCESS** <br>
+        loading: false  <br>
+        users: data ( from API ) <br>
+- case: **FETCH_USERS_FAILURE** <br> 
+        loading: false <br>
+        error: error ( from API ) <br>
 
 
 ## Folder-structure
