@@ -1,3 +1,11 @@
+## contents:
+- [firestore.doc](https://firebase.google.com/docs/firestore/query-data/get-data)
+- [QueryReference](#queryreference)
+- [DocumentReference-vs-CollectionReference](#documentreference-vs-collectionreference)
+- [DocumentSnapshot](#documentsnapshot)
+- [QuerySnapshot](#querysnapshot)
+- [My-Project](#my-project)
+
 # QueryReference and QuerySnapshot
 # QueryReference
 A query is a request we make to firestore to give us something from the database.
@@ -35,11 +43,9 @@ we can check if there are any documents in the collection by calling the **.empt
 
 we can get all the documents in the collection by calling the **.docs** property. It returns an array of our documents as documentSnapshot objects.
 
+## My-Project
 
-## Source-list 
-[firestore.doc](https://firebase.google.com/docs/firestore/query-data/get-data)
-
-# Create firebase.utils.js:
+## Create firebase.utils.js:
 ```js
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -84,7 +90,7 @@ export const signInWithGoogle = () => auth.signInWithPopup(provider);
 export default firebase;  
 ```
 
-# Handling logic inside app.js: 
+## Handling logic inside app.js: 
 ## clear-cut:
 As soon as a new Firebase account is created, you’re in a logged-in state and user’s auth object(userAuth in app.js) is available inside onAuthStateChange() method.<br>
 [onSnapshot](https://firebase.google.com/docs/firestore/query-data/listen)<br>
