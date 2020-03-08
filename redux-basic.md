@@ -4,6 +4,7 @@
 - [Demo-Principles](#demo-principles)
 - [Multiple-Reducers-Middleware](#multiple-reducers-middleware)
 - [Async-Actions](#async-actions)
+- [Thunk-Middleware](#thunk-middleware)
 - [Folder-structure](#folder-structure)
 - [My-Project](#my-project)
 ## Core-Concepts
@@ -199,7 +200,8 @@ state = {
         loading: false <br>
         error: error ( from API ) <br>
         
-Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods `dispatch` and `getState` as parameters.   
+## Thunk-Middleware
+Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The **inner function receives the store methods `dispatch` and `getState` as parameters.**   
 ```js
 const redux = require("redux");
 const createStore = redux.createStore;
