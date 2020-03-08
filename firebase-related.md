@@ -45,6 +45,28 @@ we can get all the documents in the collection by calling the **.docs** property
 
 ## My-Project
 
+auth.onAuthStateChanged and onSnapshot are like an observable
+
+![](images/firebase-subscription.png)
+
+we can alternatively resolve this in our `componentDidMount() {...}` using `fetch` or `promise`: <br>
+This can be replaced using native **fetch:** <br>
+```js
+fetch(
+      "https://firestore.googleapis.com/v1/projects/crwn-db-f5d1c/databases/(default)/documents/collections"
+    )
+      .then(response => response.json())
+      .then(collections => console.log(collections));
+```
+or using **promise:** <br>
+```js
+collectionRef.get().then(snapshot => {
+      const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+      updateCollections(collectionsMap);
+      this.setState({ loading: false });
+    });
+```
+
 ## Create firebase.utils.js:
 ```js
 import firebase from 'firebase/app';
