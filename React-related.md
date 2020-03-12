@@ -17,6 +17,7 @@
 - [Context](#context)
 - [HTTP](#http)
 - [Event-preventDefault](#event-preventdefault)
+- [Generate-UniqueID](#generate-uniqueid)
 
 </Details>
 
@@ -632,6 +633,23 @@ export  default ListWithAddItem;
 ```
 In this case, a preventDefault is called on the event when submitting the form to **prevent a browser reload/refresh**. 
 **Why is a form submit reloading the browser?** All native HTML elements come with their internal native behavior. For instance, input elements store their internal state. That's why often [React is used to take over for having controlled components by managing the state via React](https://www.robinwieruch.de/react-controlled-components/). The same applies for a form element which has a submit event that is invoked via a submit button element. In the past, it was desired to refresh the browser to flush all state and to submit the data to a backend. Nowadays, a library such as React, gives us more flexibility to deal with the submit event ourselves. In this case, we deal with it by updating the list in our component's state.
+
+## Generate-UniqueID
+This could very useful in many cases, such as rendering list efficiently, or storing documents or records in database.
+### Using UUID
+UUID is the abbreviation of [univerally unique identifier](https://en.wikipedia.org/wiki/Universally_unique_identifier), which is an identification number to uniquely identify something. The main idea of this thing is everytime we generate this numbers, it will be universally unique, which means no one could generate the exact same id as yours.
+```js
+npm install uuid
+```
+we can use a library called uuid to generate UUID. Then use it
+```js
+const uuidv4 = require("uuid/v4")
+
+uuidv4()
+
+```
+
+
 # [selector](https://medium.com/@pearlmcphee/selectors-react-redux-reselect-9ab984688dd4) in redux
 selectors provide the encapsulation of knowledge of where to find data which leads the ability to write reusable and composable code.
 ### Why Use Reselect to Create Selectors?
