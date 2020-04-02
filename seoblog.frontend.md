@@ -7,6 +7,8 @@ course-git-repo : https://github.com/kaloraat/react-node-next-multi-user-bloggin
 - **js-cookie:** A simple, lightweight JavaScript API for handling cookies
 - **nprogress:** progress bar at top
 - **react-quill:** Quill is a free, open-source WYSIWYG editor built for the modern web. With its extensible architecture and an expressive API, you can completely customize it to fulfill your needs
+- **moment:** Parse, validate, manipulate, and display dates and times in JavaScript
+- **react-render-html:** Render HTML as React element, possibly replacing dangerouslySetInnerHTML
 
 ## Initial files + command:
 
