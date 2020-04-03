@@ -170,6 +170,7 @@ signout didn't a Component at all. It just a method invoke.
 
 During creating this project
 
+- **FormData:** The [FormData](https://www.youtube.com/watch?v=9mhyo1wQGeI) interface provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data"
 - **Puppeteer:** Web scrapping / Web automation
 - **Fastify:** Creating API - REST
 - **Next.js:** Server-side rendering
