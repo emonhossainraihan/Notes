@@ -1,3 +1,48 @@
+## Primitive Data Type
+
+| Tables    |                  Are                  |
+| --------- | :-----------------------------------: |
+| boolean   |             true or false             |
+| null      |               no value                |
+| undefined | a variable declared, but has no value |
+| number    |    integers, decimals, floats, etc    |
+| string    |     a series(array) of characters     |
+
+## Object Data Types
+
+| Tables       |                   Are                   |
+| ------------ | :-------------------------------------: |
+| new Array    |         A collection of values          |
+| new Error    |  Contains a name and an error message   |
+| new Function |             A block of code             |
+| new Object   |        A Wrapper around any type        |
+| new RegExp   |          A regular expression           |
+| new Boolean  |  An object that contains true or false  |
+| new Number   | An object that contains a numeric value |
+| new String   | An object that contains a character(s)  |
+
+## Object Data Type / Constructor
+
+- All object data types inherit from Object (not primitives)
+- Object has constructor property
+- Returns a reference to the object itself
+
+```js
+function constructorSample() {
+  let introDate = new Date();
+  let strValue = new String();
+  let isActive = false;
+
+  console.log("introDate = " + introDate.constructor.toString());
+  console.log("strValue = " + strValue.constructor.toString());
+  console.log("isActive = " + isActive.constructor.toString());
+  console.log(
+    "constructorSample = " + constructorSample.constructor.toString()
+  );
+}
+```
+
+
 
 # difference between call, apply and bind
 ## Object: 
