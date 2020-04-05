@@ -1,3 +1,18 @@
+Blue printer === constructor
+```js
+function Book(name,year) {
+  this.name=name
+  this.year=year
+  this.print=function(){
+    console.log('The '+this.name+" book was publish in "+this.year)
+  }
+  return 1
+} 
+newBook=new Book('Master Java',1971)
+newBook.print()
+```
+Here Book is a constructor(aka function). 
+
 ## Primitive Data Type
 
 | Tables    |                  Are                  |
