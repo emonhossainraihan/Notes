@@ -1,4 +1,11 @@
-Blue printer === constructor
+# Creating and using constructors
+`Blue printer === constructor`
+
+Constructors are like regular functions, but we use them with the `new` keyword. There are two types of constructors: built-in constructors such as `Array` and `Object`, which are available automatically in the execution environment at runtime; and custom constructors, which define properties and methods for your own type of object.
+- `new` method
+- `Object.defineProperty()` method
+- Object literal notations
+
 ```js
 function Book(name,year) {
   this.name=name
@@ -10,8 +17,41 @@ function Book(name,year) {
 } 
 newBook=new Book('Master Java',1971)
 newBook.print()
+
+// object literals vs constructors
+
+var obj = new String("text");
+obj.slice(0,2);     // "te"
+
+// same as above
+var string = "text";
+string.slice(0,2);  // "te"
+
+
 ```
 Here Book is a constructor(aka function). 
+# Determining the type of an instance
+- instanceof
+- [instance].constructor
+
+<span style="color: red;">**Note that if the right side of the instanceof operator isn’t a function, it will throw an error**.</span> Every object in JavaScript inherits a constructor property from its prototype, which points to the constructor function that has created the object. Note, however, that using the constructor property to check the type of an instance is generally considered bad practice because it can be overwritten.
+
+# Scope-safe constructors
+```js
+function Book(name, year) { 
+  if (!(this instanceof Book)) { 
+    return new Book(name, year);
+  }
+  this.name = name;
+  this.year = year;
+}
+
+var person1 = new Book("js book", 2014);
+var person2 = Book("js book", 2014);
+
+console.log(person1 instanceof Book);    // true
+console.log(person2 instanceof Book);    // true
+```
 
 ## Primitive Data Type
 
