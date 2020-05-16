@@ -1,5 +1,36 @@
 <p>Servers need a way to know who a user is. Once a server knows who the user is, it can decide which transactions and resources the user can access. Authentication means proving who you are; usually, you authenticate by providing a username and a secret password. HTTP provides a native facility for <b>HTTP authentication</b>. While it’s certainly possible to “roll your own” authentication facility on top of <b>HTTP forms</b> and <b>cookies</b>, for many situations, HTTP’s native authentication fits the bill nicely. </p>
 
+## HTTP: The Definitive Guide
+
+- HTTP clients and HTTP servers make up the basic components of the World Wide Web
+- Web servers attach a **MIME(Multipurpose Internet Mail Extensions)** type to all HTTP object data. When a web browser gets an object back from a server, it looks at the associated MIME type to see if it knows how to handle the object. Most browsers can handle hundreds of popular object types: displaying image files, parsing and formatting HTML files. MIME Type: 
+`application/*`, `audio/*`, `chemical/*`, `image/*`, `message/*`, `model/*`, `multipart/*`, `text/*`, `video/*`, and `Other`
+- **Transaction:** An HTTP transaction consists of a request command (sent from client to server), and a response result (sent from the server back to the client)
+- Each header field consists of a name and a value, separated by a colon (:) for easy parsing
+- **Connections:** Once a TCP connection is established, messages exchanged between the client and server computers will never be lost, damaged, or received out of order <br>
+`Physical layer`(Physical network hardware)>`Data link layer`(Network-specific link interface)>`Network layer`(IP)>`Transport layer`(TCP)>`Application layer`(HTTP) <br> that's mean in networking terms, the HTTP protocol is layered over TCP. HTTP uses TCP to transport its message data. Beware that Telnet mimics HTTP clients well but doesn’t work well as a server.
+- **Proxies:** HTTP intermediaries that sit between a client and a server, receiving all of the client’s HTTP requests and relaying the requests to the server (perhaps after modifying the requests). These applications act as a proxy for the user, accessing the server on the user’s behalf. Proxies can also filter requests and responses.
+- **Caches:** A web cache or caching proxy is a special type of HTTP proxy server that keeps copies of popular documents that pass through the proxy. The next client requesting the same document can be served from the cache’s personal copy.
+
+
+| Code Range | Response Meaning                                                                                                                              |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 100-199   | Informational                                                                                                                        |
+| 200-299       | Client request successful                                                                                             |
+|300-399    | Client request redirected, further action necessary                                                                                                                            |
+| 400-499       | Client request incomplete                                                                                                               |
+|500-599      |Server errors                                                                                                    |
+ 
+- **Media Types:** The client tells the server which media types it can handle, using the Accept header. The server tries to return information in one of the client’s preferred media types, and declares the type of the data using the Content-type header.
+- **Persistent Connections:** The Connection header indicates whether the network connection will be maintained after the current transaction finishes. Under HTTP 1.0, the default is to close connections after each transaction, so the client must use `Connection: Keep-Alive` header in order to maintain the connection for an additional request.
+- The first part of the URL (http) is the URL scheme . The scheme tells a web client how to access the resource. In this case, the URL says to use the HTTP protocol. 
+- **URL Syntax:** `<scheme>://<user>:<password>@<host>:<port>/<path>;<params>?<query>#<frag>`
+- **Expandomatic URLs:** Some browsers try to expand URLs automatically, either after you submit the URL or while you’re typing.
+- **Shady Characters:** To get around the limitations of a safe character set representation, an encoding scheme was devised to represent characters in a URL that are not safe.
+- **HTTP Connection Handling:** Parallel connections Persistent connections Pipelined connections Multiplexed connections
+- **idempotent:** A transaction is idempotent if it yields the same result regardless of whether it is executed once or many times. Implementors can assume the GET, HEAD, PUT, DELETE, TRACE, and OPTIONS methods share this property.
+- Strictly speaking, proxies connect two or more applications that speak the same protocol, while gateways hook up two or more parties that speak different protocols. A gateway acts as a “protocol converter"
+
 ## Basic HTTP authentication in (Express route)
 
 ```js
