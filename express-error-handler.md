@@ -107,3 +107,49 @@ That's it. Remember:
 3. centralize your errors in error-handling middleware!
 
 Good luck!
+
+---
+
+It seems like error reporting/handling is done differently in Node.js+Express.js applications compared to other frameworks.
+
+**A)** *Detect* errors by receiving them as parameters to your callback functions. For example: 
+
+    doSomethingAndRunCallback(function(err) { 
+        if(err) { … }
+    });
+
+**B)** *Report* errors in MIDDLEWARE by calling next(err). Example:
+
+    handleRequest(req, res, next) {
+        // An error occurs…
+        next(err);
+    }
+**C)** Any middleware that has a length of 4 (4 arguments) is considered error middleware. When one calls next(err) connect goes and calls error-based middleware.
+
+```js
+app.use(function(err, req, res, next) {
+  // Only handle `next(err)` calls
+});
+```
+
+Error handling in Node.js is generally of the format A). Most callbacks return an error object as the first argument or null. Express.js uses middleware and the middleware syntax uses B) and C) (mentioned above).
+
+Instead of doing,
+
+```js
+app.get('/home', function(req, res) {
+    // An error occurs
+    throw err;
+});
+```
+
+you can do,
+
+```js
+app.get('/home', function(req, res, next) {
+    // An error occurs
+    next(err);
+});
+```
+
+
