@@ -31,6 +31,37 @@
 - **idempotent:** A transaction is idempotent if it yields the same result regardless of whether it is executed once or many times. Implementors can assume the GET, HEAD, PUT, DELETE, TRACE, and OPTIONS methods share this property.
 - Strictly speaking, proxies connect two or more applications that speak the same protocol, while gateways hook up two or more parties that speak different protocols. A gateway acts as a “protocol converter".
 - **Web Robots:** Web robots are software programs that automate a series of web transactions without human interaction. Many robots wander from web site to web site, fetching content, following hyperlinks, and processing the data they find.
+- four areas where HTTP shows some growing pains: `Complexity`, `Extensibility`, `Performance` and `Transport dependence`
+
+<h1 align="center">HTTP’s Challenge/Response Authentication Framework</h1>
+<p>The authenticationprotocol is specified in the HTTP authentication headers. HTTP defines two official authentication protocols: basicauthentication and digest authentication.
+</p>
+
+| Phase         | Headers             | Description                                                                                                           | Method/Status    |
+| ------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| Request       |                     | The first request has no authentication                                                                               | GET              |
+| Challenge     | WWW-Authenticate    | The server rejects the request with a 401 status, indicating that the user needs to provide his username and password | 401 Unauthorized |
+| Authorization | Authorization       | The client retries the request, but this time attaching an Authorization header                                       | GET              |
+| Success       | Authentication-Info | If the authorization credentials are correct, the server returns the document                                         | 200 OK           |
+
+base-64 encoding takes a sequence of 8-bit bytes and breaks the sequence of bits into 6-bit chunks. Each 6-bit piece is used to pick a character in a special 64-character alphabet, consisting mostly of letters and numbers. 
+
+## The Security Flaws of Basic Authentication
+- Basic authentication offers no protection against proxies or intermediaries that act as middlemen, leaving authentication headers intact but modifying the rest of the message to dramatically change the nature of the transaction. 
+- Basic authentication is vulnerable to spoofing by counterfeit servers. If a user can be led to believe that he is connecting to a valid host protected by basic authentication when, in fact, he is connecting to a hostile server or gateway, the attacker can request a password, store it for later use, and feign an error. 
+
+<p><b>Digest Authentication:</b> Digest functions sometimes are called cryptographic checksums, one-way hash functions, or fingerprint functions.</p>
+
+## Making HTTP Safe
+
+- Digital Cryptography
+- Symmetric-Key Cryptography
+- Public-Key Cryptography
+- Digital Signatures
+- Digital Certificates
+- HTTPS
+- A Real HTTPS Client
+- Tunneling Secure Traffic Through Proxies
 
 ## Basic HTTP authentication in (Express route)
 
