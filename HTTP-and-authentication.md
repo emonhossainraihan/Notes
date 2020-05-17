@@ -2,6 +2,10 @@
 
 ## HTTP: The Definitive Guide
 
+
+<Details> 
+ <Summary>definition</Summary>
+
 - HTTP clients and HTTP servers make up the basic components of the World Wide Web
 - Web servers attach a **MIME(Multipurpose Internet Mail Extensions)** type to all HTTP object data. When a web browser gets an object back from a server, it looks at the associated MIME type to see if it knows how to handle the object. Most browsers can handle hundreds of popular object types: displaying image files, parsing and formatting HTML files. MIME Type: 
 `application/*`, `audio/*`, `chemical/*`, `image/*`, `message/*`, `model/*`, `multipart/*`, `text/*`, `video/*`, and `Other`
@@ -11,16 +15,7 @@
 `Physical layer`(Physical network hardware)>`Data link layer`(Network-specific link interface)>`Network layer`(IP)>`Transport layer`(TCP)>`Application layer`(HTTP) <br> that's mean in networking terms, the HTTP protocol is layered over TCP. HTTP uses TCP to transport its message data. Beware that Telnet mimics HTTP clients well but doesn’t work well as a server.
 - **Proxies:** HTTP intermediaries that sit between a client and a server, receiving all of the client’s HTTP requests and relaying the requests to the server (perhaps after modifying the requests). These applications act as a proxy for the user, accessing the server on the user’s behalf. Proxies can also filter requests and responses.
 - **Caches:** A web cache or caching proxy is a special type of HTTP proxy server that keeps copies of popular documents that pass through the proxy. The next client requesting the same document can be served from the cache’s personal copy.
-- Web server and web proxy messages have the same syntax, with one exception. we need to send partial URIs to servers, and full URIs to proxies. Proxies can serve as access-control devices. HTTP defines a mechanism called proxy authentication that blocks requests for content until the user provides valid access-permission credentials to the proxy.
-
-| Code Range | Response Meaning                                                                                                                              |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| 100-199   | Informational                                                                                                                        |
-| 200-299       | Client request successful                                                                                             |
-|300-399    | Client request redirected, further action necessary                                                                                                                            |
-| 400-499       | Client request incomplete                                                                                                               |
-|500-599      |Server errors                                                                                                    |
- 
+- Web server and web proxy messages have the same syntax, with one exception. we need to send partial URIs to servers, and full URIs to proxies. Proxies can serve as access-control devices. HTTP defines a mechanism called proxy authentication that blocks requests for content until the user provides valid access-permission credentials to the proxy. 
 - **Media Types:** The client tells the server which media types it can handle, using the Accept header. The server tries to return information in one of the client’s preferred media types, and declares the type of the data using the Content-type header.
 - **Persistent Connections:** The Connection header indicates whether the network connection will be maintained after the current transaction finishes. Under HTTP 1.0, the default is to close connections after each transaction, so the client must use `Connection: Keep-Alive` header in order to maintain the connection for an additional request.
 - The first part of the URL (http) is the URL scheme . The scheme tells a web client how to access the resource. In this case, the URL says to use the HTTP protocol. 
@@ -32,6 +27,16 @@
 - Strictly speaking, proxies connect two or more applications that speak the same protocol, while gateways hook up two or more parties that speak different protocols. A gateway acts as a “protocol converter".
 - **Web Robots:** Web robots are software programs that automate a series of web transactions without human interaction. Many robots wander from web site to web site, fetching content, following hyperlinks, and processing the data they find.
 - four areas where HTTP shows some growing pains: `Complexity`, `Extensibility`, `Performance` and `Transport dependence`
+
+</Details>
+
+| Code Range | Response Meaning                                                                                                                              |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 100-199   | Informational                                                                                                                        |
+| 200-299       | Client request successful                                                                                             |
+|300-399    | Client request redirected, further action necessary                                                                                                                            |
+| 400-499       | Client request incomplete                                                                                                               |
+|500-599      |Server errors                                                                                                    |
 
 <h1 align="center">HTTP’s Challenge/Response Authentication Framework</h1>
 <p>The authenticationprotocol is specified in the HTTP authentication headers. HTTP defines two official authentication protocols: basicauthentication and digest authentication.
@@ -65,6 +70,9 @@ base-64 encoding takes a sequence of 8-bit bytes and breaks the sequence of bits
 
 ## Basic HTTP authentication in (Express route)
 
+<Details> 
+ <Summary>code</Summary>
+ 
 ```js
 function auth(req, res, next) {
   console.log(req.headers);
@@ -95,7 +103,7 @@ function auth(req, res, next) {
 app.use(auth);
 ```
 
-## use cookies for authentication
+ <b>use cookies for authentication</b>
 
 ```js
 const cookieParser = require('cookie-parser');
@@ -141,7 +149,7 @@ function auth(req, res, next) {
 app.use(auth);
 ```
 
-## use Express sessions to track authenticated users 
+<b>use Express sessions to track authenticated users</b> 
 
 ```js
 var session = require('express-session');
@@ -198,7 +206,7 @@ function auth(req, res, next) {
 app.use(auth);
 ```
 
-## create user model for authentication without hashing 
+<b>create user model for authentication without hashing</b> <br>
 **model:**
 
 ```js
@@ -352,3 +360,124 @@ function auth(req, res, next) {
 
 app.use(auth);
 ```
+</Details> 
+
+## token-based authentication
+
+- **[Passport](http://www.passportjs.org/docs/):** Authentication middleware for Node.js which supports various strategies for authentication: `Local strategy`, `OpenID`, `Oauth(Facebook, Twitter, G+ etc.) single sign-on` and `Sessions (optional)`
+
+<Details> 
+ <Summary>code</Summary>
+
+**model:**
+
+ ```js
+ var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var passportLocalMongoose = require('passport-local-mongoose');
+
+var User = new Schema({
+  admin: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+User.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model('User', User);
+ ```
+ 
+ **Route:**
+ 
+ ```js
+ var passport = require('passport');
+ router.post('/signup', (req, res, next) => {
+  User.register(
+    new User({ username: req.body.username }),
+    req.body.password,
+    (err, user) => {
+      if (err) {
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({ err: err });
+      } else {
+        passport.authenticate('local')(req, res, () => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({ success: true, status: 'Registration Successful!' });
+        });
+      }
+    }
+  );
+});
+
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.json({ success: true, status: 'You are successfully logged in!' });
+});
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  //req.session.destroy();
+  //delete req.session
+  res.redirect('/');
+});
+ ```
+ **authenticate middleware:**
+ 
+ ```js
+ var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('./models/user');
+
+passport.use(new LocalStrategy(User.authenticate()));
+//passport-local-mongoose adds authentication method to the user schema and the model
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+ ```
+ 
+     passport.serializeUser(function(user, done) {
+        done(null, user.id);
+    });              │
+                     │ 
+                     │
+                     └─────────────────┬──→ saved to session
+                                       │    req.session.passport.user = {id: '..'}
+                                       │
+                                       ↓           
+    passport.deserializeUser(function(id, done) {
+                       ┌───────────────┘
+                       │
+                       ↓ 
+        User.findById(id, function(err, user) {
+            done(err, user);
+        });            └──────────────→ user object attaches to the request as req.user   
+    });
+ 
+ **app.js:**
+ 
+ ```js
+var passport = require('passport');
+var authenticate = require('./authenticate');
+ 
+app.use(passport.initialize());
+app.use(passport.session());
+
+function auth(req, res, next) {
+  console.log(req.user);
+
+  if (!req.user) {
+    var err = new Error('You are not authenticated!');
+    err.status = 403;
+    next(err);
+  } else {
+    next();
+  }
+}
+
+app.use(auth);
+ ```
+ 
+ </Details>
