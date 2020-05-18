@@ -1,4 +1,5 @@
 <h3 align="center">Authentication means confirming your own identity, whereas authorization means being allowed access to the system<h3>
+ 
 <p>Servers need a way to know who a user is. Once a server knows who the user is, it can decide which transactions and resources the user can access. Authentication means proving who you are; usually, you authenticate by providing a username and a secret password. HTTP provides a native facility for <b>HTTP authentication</b>. While it’s certainly possible to “roll your own” authentication facility on top of <b>HTTP forms</b> and <b>cookies</b>, for many situations, HTTP’s native authentication fits the bill nicely. </p>
 
 ## HTTP: The Definitive Guide
@@ -70,6 +71,8 @@ base-64 encoding takes a sequence of 8-bit bytes and breaks the sequence of bits
 - Tunneling Secure Traffic Through Proxies
 
 ## Basic HTTP authentication in (Express route)
+
+ ![](images/TCP_connection.png)
 
 <Details> 
  <Summary>code</Summary>
@@ -487,6 +490,11 @@ app.use(auth);
  </Details>
  
  ## Token-based authentication
+ 
+ ![](images/jwt.png)
+
+ 
+ 
  Session authentication becomes a problem when we need **stateless servers** and **scalability**. But in token-based authentication, server creates a signed token and sends it to the client, all subsequent requests from the client should include the token and the server verifies the [token and responds with data if validated](https://medium.com/front-end-weekly/learn-using-jwt-with-passport-authentication-9761539c4314). 
  - `Standards based`+`Self-contained`+`Shareable`
  - `token = base64urlEncoding(header:algorithm & token type) + '.' + base64urlEncoding(payload:data) + '.' + base64urlEncoding(signature)`
@@ -534,7 +542,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 exports.getToken = function (user) {
-  return jwt.sign(user, config.secretKey, { expiresIn: 3600 });
+  return jwt.sign(user, config.secretKey, { expiresIn: 3600 }); 
+  //jwt.sign(payload, secretOrPrivateKey, [options, callback])
 };
 
 var opts = {};
