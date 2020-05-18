@@ -487,7 +487,7 @@ app.use(auth);
  </Details>
  
  ## Token-based authentication
- Session authentication becomes a problem when we need **stateless servers** and **scalability**. But in token-based authentication, server creates a signed token and sends it to the client, all subsequent requests from the client should include the token and the server verifies the token and responds with data if validated. 
+ Session authentication becomes a problem when we need **stateless servers** and **scalability**. But in token-based authentication, server creates a signed token and sends it to the client, all subsequent requests from the client should include the token and the server verifies the [token and responds with data if validated](https://medium.com/front-end-weekly/learn-using-jwt-with-passport-authentication-9761539c4314). 
  - `Standards based`+`Self-contained`+`Shareable`
  - `token = base64urlEncoding(header:algorithm & token type) + '.' + base64urlEncoding(payload:data) + '.' + base64urlEncoding(signature)`
  
@@ -502,4 +502,87 @@ Provides several methods:
 
 `install passport-jwt`: Passport strategy for authenticating using JWT
  
+ <Details>
+ <summary>code</summary>
  
+ **config.js:** 
+ 
+ ```js
+ module.exports = {
+  secretKey: '12345-67890-09876-54321',
+  mongoUrl: 'mongodb://localhost:27017/conFusion',
+};
+ ```
+  **authenticate middleware:**
+  
+```js
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('./models/user');
+
+//! Authentication
+var JwtStrategy = require('passport-jwt').Strategy;
+var ExtractJwt = require('passport-jwt').ExtractJwt;
+var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+
+var config = require('./config.js');
+
+exports.local = passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+exports.getToken = function (user) {
+  return jwt.sign(user, config.secretKey, { expiresIn: 3600 });
+};
+
+var opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = config.secretKey;
+
+exports.jwtPassport = passport.use(
+  new JwtStrategy(opts, (jwt_payload, done) => {
+    console.log('JWT payload: ', jwt_payload);
+    User.findOne({ _id: jwt_payload._id }, (err, user) => {
+      if (err) {
+        return done(err, false);
+      } else if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    });
+  })
+);
+
+exports.verifyUser = passport.authenticate('jwt', { session: false });
+```
+ 
+ **Route:**
+ 
+ ```js
+ var authenticate = require('../authenticate');
+ ...
+ 
+ router.post('/login', passport.authenticate('local'), (req, res) => {
+  var token = authenticate.getToken({ _id: req.user._id });
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.json({
+    success: true,
+    token: token,
+    status: 'You are successfully logged in!',
+  });
+});
+ ```
+You don't need to add `app.use(auth)` in app.js and you can control any route with Authentication like 
+
+```js
+dishRouter
+  .route('/')
+  .post(authenticate.verifyUser, (req, res, next) => { ... }
+```
+
+
+ </Details>
