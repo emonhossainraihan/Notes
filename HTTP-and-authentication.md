@@ -1,4 +1,4 @@
-<h3 align="center">Authentication means confirming your own identity, whereas authorization means being allowed access to the system<h3>
+<h3 align="center">Authentication means confirming your own identity, whereas authorization means being allowed access to the system<h3><br>
  
 <p>Servers need a way to know who a user is. Once a server knows who the user is, it can decide which transactions and resources the user can access. Authentication means proving who you are; usually, you authenticate by providing a username and a secret password. HTTP provides a native facility for <b>HTTP authentication</b>. While it’s certainly possible to “roll your own” authentication facility on top of <b>HTTP forms</b> and <b>cookies</b>, for many situations, HTTP’s native authentication fits the bill nicely. </p>
 
@@ -368,6 +368,8 @@ app.use(auth);
 
 ## Cookies + Session Authentication
 
+![](images/cookie.png)
+
 - **[Passport](http://www.passportjs.org/docs/):** Authentication middleware for Node.js which supports various strategies for authentication: `Local strategy`, `OpenID`, `Oauth(Facebook, Twitter, G+ etc.) single sign-on` and `Sessions (optional)`. <br>
 Three pieces need to be configured to use Passport for authentication: `Authentication strategies`, `Application middleware` and `Sessions (optional)`
 
@@ -585,7 +587,7 @@ exports.verifyUser = passport.authenticate('jwt', { session: false });
   });
 });
  ```
-You don't need to add `app.use(auth)` in app.js and you can control any route with Authentication like 
+You don't need to add `app.use(auth)` in app.js and you can control any route with Authentication like:
 
 ```js
 dishRouter
