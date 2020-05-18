@@ -1,3 +1,4 @@
+<h3 align="center">Authentication means confirming your own identity, whereas authorization means being allowed access to the system<h3>
 <p>Servers need a way to know who a user is. Once a server knows who the user is, it can decide which transactions and resources the user can access. Authentication means proving who you are; usually, you authenticate by providing a username and a secret password. HTTP provides a native facility for <b>HTTP authentication</b>. While it’s certainly possible to “roll your own” authentication facility on top of <b>HTTP forms</b> and <b>cookies</b>, for many situations, HTTP’s native authentication fits the bill nicely. </p>
 
 ## HTTP: The Definitive Guide
@@ -39,7 +40,7 @@
 |500-599      |Server errors                                                                                                    |
 
 <h1 align="center">HTTP’s Challenge/Response Authentication Framework</h1>
-<p>The authenticationprotocol is specified in the HTTP authentication headers. HTTP defines two official authentication protocols: basicauthentication and digest authentication.
+<p>The authentication protocol is specified in the HTTP authentication headers. HTTP defines two official authentication protocols: basicauthentication and digest authentication.
 </p>
 
 | Phase         | Headers             | Description                                                                                                           | Method/Status    |
@@ -362,9 +363,10 @@ app.use(auth);
 ```
 </Details> 
 
-## token-based authentication
+## Cookies + Session Authentication
 
-- **[Passport](http://www.passportjs.org/docs/):** Authentication middleware for Node.js which supports various strategies for authentication: `Local strategy`, `OpenID`, `Oauth(Facebook, Twitter, G+ etc.) single sign-on` and `Sessions (optional)`
+- **[Passport](http://www.passportjs.org/docs/):** Authentication middleware for Node.js which supports various strategies for authentication: `Local strategy`, `OpenID`, `Oauth(Facebook, Twitter, G+ etc.) single sign-on` and `Sessions (optional)`. <br>
+Three pieces need to be configured to use Passport for authentication: `Authentication strategies`, `Application middleware` and `Sessions (optional)`
 
 <Details> 
  <Summary>code</Summary>
@@ -389,6 +391,8 @@ module.exports = mongoose.model('User', User);
  ```
  
  **Route:**
+ 
+ Authenticating requests is as simple as calling `passport.authenticate()` and specifying which strategy to employ
  
  ```js
  var passport = require('passport');
@@ -481,3 +485,21 @@ app.use(auth);
  ```
  
  </Details>
+ 
+ ## Token-based authentication
+ Session authentication becomes a problem when we need **stateless servers** and **scalability**. But in token-based authentication, server creates a signed token and sends it to the client, all subsequent requests from the client should include the token and the server verifies the token and responds with data if validated. 
+ - `Standards based`+`Self-contained`+`Shareable`
+ - `token = base64urlEncoding(header:algorithm & token type) + '.' + base64urlEncoding(payload:data) + '.' + base64urlEncoding(signature)`
+ 
+ In authentication, when the user successfully logs in using their credentials, a JSON Web Token will be returned and must be saved locally (typically in local or session storage, but cookies can also be used), instead of the traditional approach of creating a session in the server and returning a cookie.
+
+Whenever the user wants to access a protected route or resource, the user agent should send the JWT, typically in the `Authorization` header using the `Bearer` schema. The content of the header might look like the following: `Authorization: Bearer eyJhbGci...<snip>...yu5CSpyHI`
+
+`install jsonwebtoken`: To implementation of JSON web tokens support <br>
+Provides several methods:
+    1. `sign()` for signing and issuing token
+    2. `verify()` for verifying and decoding token and making it available on the request property in Express
+
+`install passport-jwt`: Passport strategy for authenticating using JWT
+ 
+ 
