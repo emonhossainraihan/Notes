@@ -599,3 +599,9 @@ dishRouter
  ## HTTPS and Secure Communication
  
  ![](images/https.png)
+ 
+ The SSL layer has 2 main purposes:
+ - Verifying that you are talking directly to the server that you think you are talking to
+ - Ensuring that only the server can read what you send it and only you can read what it sends back
+ 
+ An SSL connection between a client and server is set up by a handshake, and the handshake up into 3 main phases - Hello, Certificate Exchange and Key Exchange.
