@@ -594,6 +594,8 @@ dishRouter
   .route('/')
   .post(authenticate.verifyUser, (req, res, next) => { ... }
 ```
-
-
  </Details>
+ 
+ ## HTTPS and Secure Communication
+ 
+ ![](images/https.png)
