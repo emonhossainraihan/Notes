@@ -608,7 +608,7 @@ dishRouter
  
  <h3 align="center">Same-Origin Policy</h3>
  
-<p>Web app security model that restricts how a document or script loaded from one origin can interact with a resource from another origin. Origin defined by three tuple: (Protocol, host name, port number)</p>
+<p>Web app security model that restricts how a document or script loaded from one origin can interact with a resource from another origin. Under the policy, a web browser permits scripts contained in a first web page to access data in a second web page, but only if both web pages have the same origin. Origin defined by three tuple: (Protocol, host name, port number)</p>
 
  <h3 align="center">Cross-Origin Requests</h3>
  
