@@ -605,3 +605,31 @@ dishRouter
  - Ensuring that only the server can read what you send it and only you can read what it sends back
  
  An SSL connection between a client and server is set up by a handshake, and the handshake up into 3 main phases - Hello, Certificate Exchange and Key Exchange.
+ 
+ <h3 align="center">Same-Origin Policy</h3>
+ 
+<p>Web app security model that restricts how a document or script loaded from one origin can interact with a resource from another origin. Origin defined by three tuple: (Protocol, host name, port number)</p>
+
+ <h3 align="center">Cross-Origin Requests</h3>
+ 
+<p>Cross-origin HTTP request: Accessing a resource from a different domain, protocol or port. Browsers restrict cross-origin HTTP requests initiated from within scripts, e.g., XMLHttpRequestor Fetch</p>
+
+
+ <h3 align="center">Cross-Origin Resource Sharing (CORS)</h3>
+ 
+### Simple cross-site requests:
+- GET or POST with request body containing application/x-www-form-urlencoded, multiplart/form-data or text/plain
+- No custom headers
+- For widely accessed resources like GET, can send back  reply with Access-Control-Allow-Origin: * header
+- If need to restrict the access, then send reply with Access-Control-Allow-Origin: http://abc.com
+
+### Preflighted Requests:
+- Methods that can cause side-effects on server’s data: non GET or POST, or even POST with content-type other than mentioned earlier
+- Mandated to “preflight” the request by soliciting the server’s supported methods by sending a HTTP OPTIONS request method
+- Then upon “approval” from the server sending the actual request
+- Server response may include Access-Control-Allow-Methods, Access-Control-Allow-Headers, Access-Control-Allow-Credentials
+
+### Credentialed Requests:
+- Requests that are accompanied by Cookies or HTTP Authentication information
+- Server needs to respond with Access-Control-Allow-Credentials: true
+- Accces-Control-Allow-Origin header cannot have a wildcard “*” value, must mention a valid origin domain
