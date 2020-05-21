@@ -637,3 +637,73 @@ dishRouter
 ## OAuth
 
 ![](/images/OAuth2.png)
+
+We will make use of Passport OAuth support through the passport-facebook-token module together with Facebook's OAuth support to enable user authentication within your server. Before jump into code go to [link](https://developers.facebook.com/apps/) and register your app.
+
+<Details>
+ <summary>code</summary>
+ 
+ **Updating config.js:**
+ 
+ ```js
+ module.exports = {
+    'secretKey': '12345-67890-09876-54321',
+    'mongoUrl': 'mongodb://localhost:27017/conFusion',
+    'facebook': {
+        clientId: 'Your Client App ID',
+        clientSecret: 'Your Client App Secret'
+    }
+}
+ ```
+ 
+ **Updating User Model** add new SchemaTypes `facebookId: String`
+ 
+ **Setting up Facebook Authentication**
+ 
+ ```js
+ var FacebookTokenStrategy = require('passport-facebook-token');
+. . .
+exports.facebookPassport = passport.use(new FacebookTokenStrategy({
+        clientID: config.facebook.clientId,
+        clientSecret: config.facebook.clientSecret
+    }, (accessToken, refreshToken, profile, done) => {
+        User.findOne({facebookId: profile.id}, (err, user) => {
+            if (err) {
+                return done(err, false);
+            }
+            if (!err && user !== null) {
+                return done(null, user);
+            }
+            else {
+                user = new User({ username: profile.displayName });
+                user.facebookId = profile.id;
+                user.firstname = profile.name.givenName;
+                user.lastname = profile.name.familyName;
+                user.save((err, user) => {
+                    if (err)
+                        return done(err, false);
+                    else
+                        return done(null, user);
+                })
+            }
+        });
+    }
+));
+ ```
+**Updating users Route:**
+
+```js
+router.get('/facebook/token', passport.authenticate('facebook-token'), (req, res) => {
+  if (req.user) {
+    var token = authenticate.getToken({_id: req.user._id});
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json({success: true, token: token, status: 'You are successfully logged in!'});
+  }
+});
+```
+ 
+</Details>
+
+Open your browser's JavaScript console and then obtain the `Access Token` from there.
+Then you can use the access token to contact the server at `https://<host_name>/users/facebook/token` and pass in the token using the Authorization header with the value as Bearer <Access Token> to obtain the JWT token from the server.
