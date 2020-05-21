@@ -633,3 +633,7 @@ dishRouter
 - Requests that are accompanied by Cookies or HTTP Authentication information
 - Server needs to respond with Access-Control-Allow-Credentials: true
 - Accces-Control-Allow-Origin header cannot have a wildcard “*” value, must mention a valid origin domain
+
+## OAuth
+
+![](/images/OAuth2.png)
