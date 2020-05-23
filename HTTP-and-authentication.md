@@ -373,6 +373,18 @@ app.use(auth);
 - **[Passport](http://www.passportjs.org/docs/):** Authentication middleware for Node.js which supports various strategies for authentication: `Local strategy`, `OpenID`, `Oauth(Facebook, Twitter, G+ etc.) single sign-on` and `Sessions (optional)`. <br>
 Three pieces need to be configured to use Passport for authentication: `Authentication strategies`, `Application middleware` and `Sessions (optional)`
 
+The structure when you need to call passport.authenticate and expect it to pass you back information like this as a callback method here 
+
+```js
+passport.authenticate('local', (err, user, info) => {
+ req.logIn(user, (err) => {
+  //handle error
+  //generate token
+  })
+ //passport.authenticate wil add this method called req.logIn to the user
+}) (req, res, next);
+```
+
 <Details> 
  <Summary>code</Summary>
 
