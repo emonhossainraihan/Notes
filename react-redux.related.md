@@ -19,7 +19,7 @@ Actions are payloads of information that send data from your application to your
 
 ## Reducer
 A reducer is a function that determines changes to an application’s state. It uses the action it receives to determine this change.
-The reducer is a pure function that takes the previous state and an action, and returns the next state. 
+The reducer is a pure function that takes the previous state and an action, and returns the next state. Update data immutably(don't modify inputs)
 ```js
 const contactReducer = (state = initialState, action) => {
   // Do something
@@ -46,6 +46,8 @@ A [store](https://redux.js.org/api/store/) holds the whole state tree of your ap
 ![](images/08.png)
 
 ## Subscribe
+
+Ok you provide the global store to each and every component but if any component need any piece of data from the global state it should go through by subscribing the global store and get the state via `mapStateToProps`. And if it need to pass any information of new data to the global store then it should trigger an action which come from `mapDispatchToProps`. 
 
 ![](images/09.png)
 ![](images/10.png)
