@@ -51,3 +51,17 @@ Ok you provide the global store to each and every component but if any component
 
 ![](images/09.png)
 ![](images/10.png)
+
+<hr>
+
+All you see just triggering synchronous action what if you need to fetch data inside your action to pass data as payload to the reducers? Here come redux-thunk middleware
+
+>Redux Thunk teaches Redux to recognize special kinds of actions that are in fact functions
+
+When an action creator returns a function, that function will get executed by the Redux Thunk middleware. This function doesn't need to be pure; it is thus allowed to have side effects, including executing asynchronous API calls. The function can also dispatch actions. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met.
+
+If Redux Thunk middleware is enabled, any time you attempt to dispatch a function instead of an action object, the middleware will call that function with dispatch method itself as the first argument.
+
+And then since we “taught” Redux to recognize such “special” action creators (we call them thunk action creators), we can now use them in any place where we would use regular action creators.
+
+This was the motivation for **finding a way to “legitimize” this pattern of providing dispatch to a helper function, and help Redux “see” such asynchronous action creators as a special case of normal action creators** rather than totally different functions.
