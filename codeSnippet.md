@@ -63,10 +63,13 @@ export default withRouter(Menu);
 ```
 ## Include Bootstrap in index.html:
 css go to head section and scripts go to at the last of the body section 
+```bash
 npm install bootstrap --save
 npm install jquery popper.js --save
 npm install font-awesome --save
 npm install bootstrap-social --save
+```
+
 ```html
     <!-- Required meta tags always come first -->
     <meta charset="utf-8">
@@ -82,4 +85,59 @@ npm install bootstrap-social --save
     <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+```
+## Error handling in express
+
+```js
+class ErrorHandler extends Error {
+  constructor(statusCode, message) {
+    super();
+    this.statusCode = statusCode;
+    this.message = message;
+  }
+}
+const handleError = (err, res) => {
+  const { statusCode, message } = err;
+  res.status(statusCode).json({
+    status: "error",
+    statusCode,
+    message
+  });
+};
+module.exports = {
+  ErrorHandler,
+  handleError
+};
+
+const express = require('express')
+const { handleError, ErrorHandler } = require('./helpers/error')
+const app = express()
+
+app.use(express.json())
+const PORT = process.env.PORT || 3000
+
+app.get('/', (req, res) => {
+  return res.status(200).json('Hello world');
+})
+
+app.get('/error', (req, res) => {
+  throw new ErrorHandler(500, 'Internal server error');
+})
+
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
+app.listen(PORT, () => console.log(`server listening at port ${PORT}`))
+```
+
+## mongoose remove relational document
+
+```js
+clientSchema.pre('remove', function(next) {
+    // 'this' is the client being removed. Provide callbacks here if you want
+    // to be notified of the calls' result.
+    Sweepstakes.remove({client_id: this._id}).exec();
+    Submission.remove({client_id: this._id}).exec();
+    next();
+});
 ```
