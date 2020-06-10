@@ -1,4 +1,6 @@
 
+>Node.js is an event-based, non-blocking, asynchronous I/O runtime that uses Google’s V8 JavaScript engine and libuv library.
+
 ##  What is an Event-Driven Architecture?
 **Decoupled systems that run in response to events**
 
