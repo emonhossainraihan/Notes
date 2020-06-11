@@ -385,6 +385,8 @@ passport.authenticate('local', (err, user, info) => {
 }) (req, res, next);
 ```
 
+![](images/passport-session.png)
+
 <Details> 
  <Summary>code</Summary>
 
