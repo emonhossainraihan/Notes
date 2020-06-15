@@ -14,3 +14,12 @@ But from a topological perspective this doesn't make a difference
 - Data stored in RDDs is only read from the underlying storage systems when needed: This concept is called lazy evaluation and 
 due to the inventors of functional programming languages. This means that functions are only executed if the output of their 
 computations is needed for further downstream data processing
+
+**Parquet Format:** Apache Parquet is a columnar storage format available to any project in the Hadoop ecosystem, 
+regardless of the choice of data processing framework, data model or programming language.
+- Binary Format 
+- API for JVM/Hadoop & C++
+- Columnar
+- Encoded and Compressed 
+- Machine-Friendly
+
