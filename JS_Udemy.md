@@ -155,7 +155,8 @@ const attackfunction={
 }
 
 function CreatePokemon(name,weapon){                 
-    let newPokemon=Object.create(attackfunction); //It's borrow attackfunction via creating Object and add extra feathers 
+    let newPokemon=Object.create(attackfunction); 
+    // It's borrow attackfunction via creating Object and add extra feathers 
     newPokemon.name=name
     newPokemon.weapon=weapon
     return newPokemon
@@ -210,7 +211,8 @@ const attackfunction={
 }
 
 function CreatePokemon(name,weapon){                 
-    let newPokemon=Object.create(attackfunction);    //It's borrow attackfunction via creating Object and add extra feathers 
+    let newPokemon=Object.create(attackfunction); 
+    // It's borrow attackfunction via creating Object and add extra feathers 
     newPokemon.name=name
     newPokemon.weapon=weapon
     return newPokemon
@@ -219,17 +221,18 @@ function CreatePokemon(name,weapon){
 const charmander=CreatePokemon('charmander','fire')
 charmander.attack()
 
-//Constructor Functions  (new)
+// Constructor Functions  (new)
 
 function Pokemon(name,weapon){
-    this.name=name;  //this-> didn't reffer to windows 
-    this.weapon=weapon; //The only way to add properties to a constructor is this.something
+    this.name=name;  // this-> didn't reffer to windows 
+    this.weapon=weapon; // The only way to add properties to a constructor is this.something
 }
 
-Pokemon.prototype.attack=function(){    //here I can't use arrow function as it is lexically blocked 
+Pokemon.prototype.attack=function(){  // here I can't use arrow function as it is lexically blocked 
     return 'attack with '+this.weapon
 }
-const charmanderX=new Pokemon('charmander','fire') //this new reffer to charmander => new binding this 
+const charmanderX=new Pokemon('charmander','fire') 
+// this new reffer to charmander => new binding this 
 
 //build-in constructor 
 
@@ -542,6 +545,4 @@ const getData2=async function(){
 }
 ```
 
-```js
 
-```
