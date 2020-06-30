@@ -1,9 +1,9 @@
 ## heading links
-- [navigation bar with active functionality](navigation-bar-with-active-functionality)
-- [Include Bootstrap in index-file](include-bootstrap-in-index-file)
-- [Error handling in express](error-handling-in-express)
-- [mongoose remove relational document](mongoose-remove-relational-document)
--  [Handle token expire](handle-token-expire)
+- [navigation bar with active functionality](#navigation-bar-with-active-functionality)
+- [Include Bootstrap in index-file](#include-bootstrap-in-index-file)
+- [Error handling in express](#error-handling-in-express)
+- [mongoose remove relational document](#mongoose-remove-relational-document)
+-  [Handle token expire](#handle-token-expire)
 
 
 ## navigation bar with active functionality
