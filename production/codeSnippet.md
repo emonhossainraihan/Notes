@@ -1,4 +1,12 @@
-## navigation bar with active functionality:
+## heading links
+- [navigation bar with active functionality](navigation-bar-with-active-functionality)
+- [Include Bootstrap in index-file](include-bootstrap-in-index-file)
+- [Error handling in express](error-handling-in-express)
+- [mongoose remove relational document](mongoose-remove-relational-document)
+-  [Handle token expire](handle-token-expire)
+
+
+## navigation bar with active functionality
 
 ```js
 //app.js
@@ -61,7 +69,7 @@ const Menu = ({ history }) => (
 
 export default withRouter(Menu);
 ```
-## Include Bootstrap in index.html:
+## Include Bootstrap in index file
 css go to head section and scripts go to at the last of the body section 
 ```bash
 npm install bootstrap --save
@@ -140,4 +148,37 @@ clientSchema.pre('remove', function(next) {
     Submission.remove({client_id: this._id}).exec();
     next();
 });
+```
+
+## Handle token expire
+```js
+export const handleResponse = (response) => {
+  if (response.status === 401) {
+    signout(() => {
+      //* reDirect to signin page
+      Router.push({
+        pathname: '/signin',
+        query: {
+          message: 'Your session is expired. Please signin',
+        },
+      });
+    });
+  } else {
+    return;
+  }
+};
+
+export const signout = (next) => {
+  removeCookie('token');
+  removeLocalStorage('user');
+  next();
+
+  return fetch(`${API}/signout`, {
+    method: 'GET',
+  })
+    .then((response) => {
+      console.log('signout success');
+    })
+    .catch((err) => console.log(err));
+};
 ```
