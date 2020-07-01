@@ -6,6 +6,7 @@
 - [Handle token expire](#handle-token-expire)
 - [How to Integrate Disqus](#how-to-integrate-disqus)
 - [HandleChange shortcut](#handleChange-shortcut)
+- [Forget password and Reset password](#forget-password-and-reset-password)
 
 ## navigation bar with active functionality
 
@@ -267,4 +268,63 @@ export default function MyComponent() {
     formData.set(name, value);
     setValues({ ...values, [name]: value, formData, error: "" });
   };
+```
+## Forget password and Reset password
+```js
+const nodemailer = require('nodemailer');
+// mailing API authentication
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'mdroy7475@gmail.com',
+    pass: process.env.EMAIL_FROM_PASS,
+  },
+});
+
+exports.forgotPassword = (req, res) => {
+  const { email } = req.body;
+
+  User.findOne({ email }, (err, user) => {
+    if (err || !user) {
+      return res.status(401).json({
+        error: 'User with that email does not exist',
+      });
+    }
+    // generate token 
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_RESET_PASSWORD, {
+      expiresIn: '10m',
+    });
+
+    // email setup
+    const mailOptions = {
+      from: process.env.EMAIL_FROM,
+      to: email,
+      subject: `Password reset link`,
+      html:`...`
+    };
+    // populating the db > user > resetPasswordLink
+    return user.updateOne({ resetPasswordLink: token }, (err, success) => {
+      if (err) {
+        return res.json({ error: errorHandler(err) });
+      } else {
+        transporter.sendMail(mailOptions, (error, response) => {
+          if (error) {
+            console.log(error);
+            return res.json({
+              success: false,
+            });
+          }
+
+          return res.json({
+            message: `Email has been sent to ${email}`,
+          });
+        });
+      }
+    });
+  });
+};
+
+exports.resetPassword = (req, res) => {
+  //
+};
 ```
