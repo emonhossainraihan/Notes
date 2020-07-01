@@ -5,7 +5,7 @@
 - [mongoose remove relational document](#mongoose-remove-relational-document)
 - [Handle token expire](#handle-token-expire)
 - [How to Integrate Disqus](#how-to-integrate-disqus)
-
+- [HandleChange shortcut](#handleChange-shortcut)
 
 ## navigation bar with active functionality
 
@@ -258,4 +258,13 @@ export default function MyComponent() {
     </div>
   );
 }
+```
+## HandleChange shortcut 
+```js
+ const handleChange = (name) => (e) => {
+    // console.log(e.target.value);
+    const value = name === "photo" ? e.target.files[0] : e.target.value;
+    formData.set(name, value);
+    setValues({ ...values, [name]: value, formData, error: "" });
+  };
 ```
