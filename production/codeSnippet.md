@@ -5,7 +5,7 @@
 - [mongoose remove relational document](#mongoose-remove-relational-document)
 - [Handle token expire](#handle-token-expire)
 - [How to Integrate Disqus](#how-to-integrate-disqus)
-- [HandleChange shortcut](#handleChange-shortcut)
+- [HandleChange shortcut](#handlechange-shortcut)
 - [Forget password and Reset password](#forget-password-and-reset-password)
 
 ## navigation bar with active functionality
@@ -370,4 +370,39 @@ exports.resetPassword = (req, res) => {
   }
 };
 
+```
+
+To grap the `resetPasswordLink` from the URL we need to use `withRouter` (query.id) in our frontend
+```js
+//! forget && reset password frontend
+export const forgotPassword = (email) => {
+  return fetch(`${API}/forgot-password`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(email),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+//* resetInfo => resetPassword
+export const resetPassword = (resetInfo) => {
+  return fetch(`${API}/reset-password`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(resetInfo),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
 ```
