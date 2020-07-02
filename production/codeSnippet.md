@@ -8,6 +8,7 @@
 - [HandleChange shortcut](#handlechange-shortcut)
 - [Forget password and Reset password](#forget-password-and-reset-password)
 - [Google signup](#google-signup)
+- [Google Analytics](#google-analytics)
 
 ## navigation bar with active functionality
 
@@ -526,4 +527,23 @@ const LoginGoogle = () => {
 };
 
 export default LoginGoogle;
+```
+## Google Analytics
+Collect your Global Site Tag (gtag.js) from `admin>Tracking Info>Tracking code`
+```js
+setGoogleTags() {
+    if (publicRuntimeConfig.PRODUCTION) {
+      return {
+        __html: `
+      ...scripts
+        `,
+      };
+    }
+  }
+ //* google analytics *//
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-171556647-1"
+          ></script>
+          <script dangerouslySetInnerHTML={this.setGoogleTags()}></script>
 ```
