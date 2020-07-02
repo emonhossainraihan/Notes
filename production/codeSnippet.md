@@ -7,7 +7,7 @@
 - [How to Integrate Disqus](#how-to-integrate-disqus)
 - [HandleChange shortcut](#handlechange-shortcut)
 - [Forget password and Reset password](#forget-password-and-reset-password)
-- [Google signup](google-signup)
+- [Google signup](#google-signup)
 
 ## navigation bar with active functionality
 
