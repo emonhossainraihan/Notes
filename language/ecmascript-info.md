@@ -1,5 +1,18 @@
 every time you use a `require()`, you’re in fact using the implementation of **CommonJS** ES modules — or just **ESM**, which comes within Node.js by default.
 
+Remember, ESM can’t be imported via the require function. On the other side, if you try the import from syntax, we’ll get an error because CommonJS files are not allowed to use it
+
+The `@std/esm` rewrites require and also **adds functionality** to the Node version module being used. It does some inline and on-demand transformations, processing and caching to the executions in real time.
+
+When dealing with codebase conversions, remember these **important points**:
+
+- When migrating your **js** files to **mjs**, change the basic exports (**module.exports**) to the new ESM **export** statement
+- All the **requires** must be changed to the respective **import** statements
+- If you’re using require dynamically, remember to make the import as well, via **await import** (or the dynamic import() function we’ve seen)
+- Also change the other requires in other files that reference what you’re migrating
+- **mjs** files, when used in the browser, must be served with the correct Media Type, which is text/javascript or application/javascript. Since browsers don’t care about the extension, Node.js is the only thing that requires the extension to exist. This is the way it can detect whether a file is a **CJS** or an **ES module**
+
+
 ## [ES modules: A cartoon deep-dive](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/)
 
 ES Modules is the ECMAScript standard for working with modules. While Node.js has been using the CommonJS standard since years, the browser never had a module system, as every major decision such as a module system must be first standardized by ECMAScript and then implemented.
@@ -12,11 +25,11 @@ The [ES module spec](https://tc39.es/ecma262/#sec-modules) says how you should p
 
 It’s the loader that fetches the files. And the loader is specified in a different specification. For browsers, that spec is the [HTML spec](https://html.spec.whatwg.org/#fetch-a-module-script-tree). But you can have different loaders based on what platform you are using.
 
-![](./images/es-module1.png)
+![](../images/es-module1.png)
 
 The loader also controls exactly how the modules are loaded. It calls the ES module methods — `ParseModule`, `Module.Instantiate`, and `Module.Evaluate`. It’s kind of like a puppeteer controlling the JS engine’s strings.
 
-![](./images/es-module2.png)
+![](../images/es-module2.png)
 
 ## Construction
 
@@ -26,7 +39,7 @@ Three things happen for each module during the Construction phase.
 - Fetch the file (by downloading it from a URL or loading it from the file system)
 - Parse the file into a module record
 
-![](./images/es-module3.png)
+![](../images/es-module3.png)
 
 ## Parsing
 Now that we have fetched this file, we need to parse it into a module record. Once the module record is created, it is placed in the module map. In browsers you just put `type="module"` on the script tag. This tells the browser that this file should be parsed as a module. And since only modules can be imported, the browser knows that any imports are modules, too.
