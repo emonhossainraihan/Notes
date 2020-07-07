@@ -5,7 +5,14 @@ scope refers to the **visibility** of variables, functions, and objects in some 
 **The Principle of Least Access**: This principle is also applied to programming language designs, 
 where it is called scope in most programming languages including JavaScript
 
-Variables are statically scoped in JavaScript. In the JavaScript language there are two types of scopes:
+Variables are statically scoped in JavaScript. Fundamentally, scope is function-based while context is object-based. 
+In other words, scope pertains to the variable access of a function when it is invoked 
+and is unique to each invocation. Context is always the value of the this keyword which 
+is a reference to the object that “owns” the currently executing code.
+- A context of a function is the value of this for that function
+- Scope on the other hand defines the way JavaScript resolves a variable at run time. 
+
+In the JavaScript language there are two types of scopes:
 
 - Global Scope
 - Local Scope
