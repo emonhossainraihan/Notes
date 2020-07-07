@@ -1,17 +1,22 @@
 pajetix208@wwmails.com
 
 
-When you connect to a traditional server, such as Apache, it will spawn a new thread to handle the request. In a language such as PHP or Ruby, any subsequent I/O operations (for example, interacting with a database) block the execution of your code until the operation has completed. That is, the server has to wait for the database lookup to complete before it can move on to processing the result. If new requests come in while this is happening, the server will spawn new threads to deal with them. This is potentially inefficient, as a large number of threads can cause a system to become sluggish—and, in the worst case, for the site to go down. The most common way to support more connections is to add more servers.
+When you connect to a traditional server, such as Apache, it will spawn a new thread to handle the request. In a language such as PHP or Ruby, any subsequent I/O operations (for example, interacting with a database) block the execution of your code until the operation has completed. That is, the server has to wait for the database lookup to complete before it can move on to processing the result. If new requests come in while this is happening, the server will **spawn new threads** to deal with them. This is potentially inefficient, as a large number of threads can cause a system to become sluggish—and, in the worst case, for the site to go down. The most common way to support more connections is to add more servers.
 
-Node.js, however, is single-threaded. It’s also event-driven, which means that everything that happens in Node is in reaction to an event. For example, when a new request comes in (one kind of event) the server will start processing it. If it then encounters a blocking I/O operation, instead of waiting for this to complete, it will register a callback before continuing to process the next event. When the I/O operation has finished (another kind of event), the server will execute the callback and continue working on the original request. Under the hood, Node uses the libuv library to implement this asynchronous (that is, non-blocking) behavior.
-
-The fact that Node runs in a single thread does impose some limitations. For example, blocking I/O calls should be avoided, CPU-intensive operations should be handed off to a worker thread, and errors should always be handled correctly for fear of crashing the entire process.
+Node.js, however, is single-threaded. It’s also event-driven, which means that everything that happens in Node is in reaction to an event. For example, when a new request comes in (one kind of event) the server will start processing it. If it then encounters a blocking I/O operation, instead of waiting for this to complete, it will **register a callback** before continuing to process the next event. When the I/O operation has finished (another kind of event), the server will execute the callback and continue working on the original request. Under the hood, Node uses the **libuv library to implement this asynchronous** (that is, non-blocking) behavior.
 
 ## Living in a single-threaded world
 
 JavaScript was conceived as a single-threaded programming language that ran in a browser. Being single-threaded means that only one set of instructions is executed at any time in the same process (the browser, in this case, or just the current tab in modern browsers).
 
-In other words, everything runs in parallel except for our JavaScript code. Synchronous blocks of JavaScript code are always run one at a time
+In other words, everything runs in parallel except for our JavaScript code. Synchronous blocks of JavaScript code are always run one at a time.
+
+## Are There Any Downsides?
+
+The fact that Node runs in a single thread does impose some limitations. For example, **blocking I/O** calls should be avoided, **CPU-intensive operations** should be handed off to a worker thread, and **errors should always be handled correctly** for fear of crashing the entire process.
+
+
+## Node.js multithreading: What are Worker threads, and why do they matter?
 
 ## CPU-intensive tasks
 
@@ -67,12 +72,12 @@ let interval = setInterval(() => {
 
 Now we process 10 items each time and call setImmediate(callback) so that if there’s something else the program needs to do, it will do it in between those chunks of 10 items. I’ve added a setInterval() for demonstrating exactly that.
 
-As you can see, the code gets more complicated. And many times, the algorithm is a lot more complex than this, so it’s hard to know where to put the setImmediate() to find a good balance.
+As you can see, the code gets more complicated. And many times, the algorithm is a lot more complex than this, so it’s hard to know **where to put the setImmediate()** to find a good balance.
 
-**Alert**
+## Alert
 
 
-Since nextTick is called at the end of the current operation, calling it recursively can end up blocking the event loop from continuing. setImmediate solves this by firing in the check phase of the event loop, allowing event loop to continue normally.
+Since **nextTick** is called at the end of the current operation, calling it recursively can end up blocking the event loop from continuing. **setImmediate** solves this by firing in the check phase of the event loop, allowing event loop to continue normally.
 
 ```js
    ┌───────────────────────┐
@@ -118,9 +123,41 @@ step(0);
 
 nextTick can become blocking when used recursively whereas setImmediate will fire in the next event loop and setting another setImmediate handler from within one won't interrupt the current event loop at all, allowing it to continue executing phases of the event loop as normal.
 
+## Solution?
+
+Threads are still very lightweight in terms of resources compared to forked processes. And this is the reason why Worker threads were born!
+
+>  fork the process: require('child_process') > using Worker threads: require('worker_threads')
+
 Threads share the same memory space, so context switch is faster (basically, just the register contents are saved per thread). However, synchronizing between them and ensuring mutual exclusion (global data integrity) is under your own responsibility (as a programmer). Processes run in different memory spaces, so mutual exclusion is guaranteed by the OS, but context switch is slower of course.
 Keeping average person in mind,
 
 > On your computer, open Microsoft Word and web browser. We call these two processes.
 
+## Understand Module System
+
+> CommonJS, modules are loaded synchronously and processed in the order they occur
+
+```js
+console.log(module)
+//result
+Module {
+  id: '.',
+  exports: {},
+  parent: null,
+  filename: '/home/emon/Desktop/index.js',
+  loaded: false,
+  children: [],
+  paths:
+   [ '/home/jim/Desktop/node_modules',
+     '/home/jim/node_modules',
+     '/home/node_modules',
+     '/node_modules' ] }
+
+```
+Assigning properties to `exports` also adds them to `module.exports`
+
+Do you like surprises?
+
+You have no choice - exports is not a reference to modules.exports all the time! If you assign anything to module.exports, exports is not no longer a reference to it, and exports loses all its power.
 
