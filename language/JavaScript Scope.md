@@ -1,3 +1,13 @@
+> JS code > Parser > AST (Abstract-Syntax-Tree) > Interpreter > Bytecode
+
+## Problematic
+
+- eval
+- arguments
+- for in
+- with
+- delete
+
 ## Scope
 
 scope refers to the **visibility** of variables, functions, and objects in some particular part of your code during runtime
@@ -5,7 +15,12 @@ scope refers to the **visibility** of variables, functions, and objects in some 
 **The Principle of Least Access**: This principle is also applied to programming language designs, 
 where it is called scope in most programming languages including JavaScript
 
-Variables are statically scoped in JavaScript. Fundamentally, scope is function-based while context is object-based. 
+Variables are statically scoped in JavaScript. 
+
+> In JavaScript our lexical scope (available data+variables where the function was defined) determines our accessibility. Not where the function is called 
+(dynamic scope)
+
+Fundamentally, scope is function-based while context is object-based. 
 In other words, scope pertains to the variable access of a function when it is invoked 
 and is unique to each invocation. Context is always the value of the this keyword which 
 is a reference to the object that “owns” the currently executing code.
@@ -49,7 +64,7 @@ the execution context will be transferred to the parent context. The execution c
 The first phase that is the creation phase is present when a function is called but its code is not yet executed. 
 Three main things that happen in the creation phase are:
 
-> Setup memory space for variables and functions **"Hoisting"**
+> Setup memory space for variables and functions **"Hoisting" (variable: partially; function: fully)**
 
 - Creation of the Variable (Activation) Object
 - Creation of the Scope Chain **(Reference to outer 💡Lexical environment)**
