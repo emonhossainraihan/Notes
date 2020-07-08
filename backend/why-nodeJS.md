@@ -1,9 +1,9 @@
 
 >Node.js is an event-based, non-blocking, asynchronous I/O runtime that uses Google’s V8 JavaScript engine and libuv library.
 
-The **V8 engine** is the open-source JavaScript engine that runs in Google Chrome and other Chromium-based web browsers, including Brave, Opera, and Vivaldi. It was designed with performance in mind and is responsible for compiling JavaScript directly to native machine code that your computer can execute. However, when we say that Node is built on the V8 engine, we don’t mean that Node programs are executed in a browser. They aren’t. Rather, the creator of Node (Ryan Dahl) took the V8 engine and enhanced it with various features, such as a file system API, an HTTP library, and a number of operating system–related utility methods. This means that Node.js is a program we can use to execute JavaScript on our computers. In other words, it’s a JavaScript runtime.
+The **V8 engine** is the open-source JavaScript engine that runs in Google Chrome and other Chromium-based web browsers, including Brave, Opera, and Vivaldi. It was designed with performance in mind and is responsible for compiling JavaScript directly to native machine code that your computer can execute. However, when we say that Node is built on the V8 engine, we don’t mean that Node programs are executed in a browser. They aren’t. Rather, the creator of Node (Ryan Dahl) took the V8 engine and enhanced it with various features, such as a file system API, an HTTP library, and a number of operating system–related utility methods. This means that Node.js is a program we can use to execute JavaScript on our computers. In other words, it’s a **JavaScript runtime**.
 
-Node.js, however, is single-threaded. It’s alsoevent-driven, which means that everything that happens in Node is in reaction to an event. For example, when a new request comes in (one kind of event) the server will start processing it. If it then encounters a blocking I/O operation, instead of waiting for this to complete, it will register a callback before continuing to process the next event. When the I/O operation has finished (another kind of event), the server will execute the callback and continue working on the original request. Under the hood, Node uses thelibuvlibrary to implement this asynchronous (that is, non-blocking) behavior.
+Node.js, however, is single-threaded. It’s also event-driven, which means that everything that happens in Node is in reaction to an event. For example, when a new request comes in (one kind of event) the server will start processing it. If it then encounters a blocking I/O operation, instead of waiting for this to complete, it will register a callback before continuing to process the next event. When the I/O operation has finished (another kind of event), the server will execute the callback and continue working on the original request. Under the hood, Node uses thelibuvlibrary to implement this asynchronous (that is, non-blocking) behavior.
 
 ##  What is an Event-Driven Architecture?
 **Decoupled systems that run in response to events**
@@ -16,15 +16,15 @@ Event-driven architectures have three key components: event producers, event rou
 
 The fact that Node runs in a single thread does impose some limitations. For example, blocking I/O calls should be avoided, [CPU-intensive operations should be handed off to a worker thread](https://blog.logrocket.com/node-js-multithreading-what-are-worker-threads-and-why-do-they-matter-48ab102f8b10/), and errors should always be handled correctly for fear of crashing the entire process.
 
-Some developers also dislike the callback-based style of coding that JavaScript imposes (so much so that there’s evena [site](http://callbackhell.com/) dedicated to the horrors of writing asynchronous JavaScript). But with the arrival of native Promises, followed closely by async await,[flow control in modern JavaScript](https://www.sitepoint.com/flow-control-callbacks-promises-async-await/) has become easier than it ever was.
+Some developers also dislike the callback-based style of coding that JavaScript imposes (so much so that there’s even a [site](http://callbackhell.com/) dedicated to the horrors of writing asynchronous JavaScript). But with the arrival of native Promises, followed closely by async await,[flow control in modern JavaScript](https://www.sitepoint.com/flow-control-callbacks-promises-async-await/) has become easier than it ever was.
 
 ## Different Module Formats
 
 As JavaScript originally had no concept of modules, a variety of competing formats have emerged over time. Here’s a list of the main ones to be aware of:
 
-- The Asynchronous Module Definition (AMD)format is used in browsers and uses a define function to define modules.
-- The CommonJS (CJS)format is used in Node.js and uses require and module.exports to define dependencies and modules. The npm ecosystem is built upon this format.
-- The ES Module (ESM)format. As of ES6 (ES2015), JavaScript supports a native module format. It uses an export keyword to export a module’s public API and an import keyword to import it.
+- The Asynchronous Module Definition (AMD) format is used in browsers and uses a define function to define modules.
+- The CommonJS (CJS) format is used in Node.js and uses require and module.exports to define dependencies and modules. The npm ecosystem is built upon this format.
+- The ES Module (ESM) format. As of ES6 (ES2015), JavaScript supports a native module format. It uses an export keyword to export a module’s public API and an import keyword to import it.
 - The System.registerformat was designed to support ES6 modules within ES5.
 - The Universal Module Definition (UMD) format can be used both in the browser and in Node.js. It’s useful when a module needs to be imported by a number of different module loaders.
 
@@ -48,7 +48,7 @@ As JavaScript originally had no concept of modules, a variety of competing forma
 
 - What is the Event Loop? Is it part of V8?
 
-  - The event loop is provided by the libuv library. It is not part of V8. The Event Loop is the entity that handles external events and converts them into callback invocations. It is a loop that picks events from the event queues and pushes their callbacks into the Call Stack. It is also a multi-phase loop.
+  - The event loop is provided by the libuv library. It is not part of V8. The Event Loop is the entity that handles external events and converts them into callback invocations. It is a loop that picks events from the event queues and pushes their callbacks into the Call Stack. It is also a multi-phase loop. The Event Loop sits in the middle between V8’s Call Stack and the different phases and callback queues and it acts like an organizer. When the V8 Call Stack is empty, the event loop can decide what to execute next.
 
 - What is the difference between setImmediate and process.nextTick?
 
