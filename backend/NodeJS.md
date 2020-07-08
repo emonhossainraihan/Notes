@@ -161,3 +161,80 @@ Do you like surprises?
 
 You have no choice - exports is not a reference to modules.exports all the time! If you assign anything to module.exports, exports is not no longer a reference to it, and exports loses all its power.
 
+## Requiring Modules
+
+Node uses two core modules for managing module dependencies. You can think of the require module as the command and the module module as the organizer of all required modules.
+
+```js
+function require(path) {
+      return mod.require(path);
+    }
+```
+When Node invokes that require() function with a local file path as the function’s only argument, Node goes through the following sequence of steps:
+
+- Resolving: To find the absolute path of the file
+
+- Loading: To determine the type of the file content
+
+- Wrapping: To give the file its private scope. This is what makes both the require and module objects local to every file we require
+
+- Evaluating: This is what the VM eventually does with the loaded code
+
+- Caching: So that when we require this file again, we don’t go over all the steps another time
+
+We require a module by loading the content of a file into memory. The module.exports object in every module is what the require function returns when we require that module. module fully loaded if we print its module object on the next cycle of the event loop using a setImmediate call. The whole process of requiring/loading a module is synchronous. That’s why we were able to see the modules fully loaded after one cycle of the event loop. This also means that we cannot change the exports object asynchronously. **What happens when module 1 requires module 2, and module 2 requires module 1?**
+
+## Requiring a Folder
+
+Modules don’t have to be files. An index.js file will be used by default when we require a folder, but we can control what file name to start with under the folder using the main property in package.json.  
+
+## Resolve Only
+
+If you want to only resolve the module and not execute it, you can use the require.resolve function. 
+
+## JSON and C/C++ Addons
+
+If a file extension was not specified, the first thing Node will try to resolve is a .js file. If it can’t find a .js file, it will try a .json file and it will parse the .json file if found as a JSON text file. After that, it will try to find a binary .node file. 
+
+```bash
+$ node
+Welcome to Node.js v12.9.1.
+Type ".help" for more information.
+> require.extensions
+[Object: null prototype] {
+  '.js': [Function],
+  '.json': [Function],
+  '.node': [Function],
+  '.mjs': [Function]
+}
+```
+
+## Module Wrapping
+
+Before compiling a module, Node wraps the module code in a function, which we can inspect using the wrapper property of the `module` module. This wrapper function has 5 arguments: **exports, require, module, filename, and dirname**. This is what makes them appear to look global when in fact they are specific to each module.
+
+## The “require” Object
+
+There is nothing special about require. It’s an object that acts mainly as a function that takes a module name or path and returns the module.exports object. We need a way to determine if the file is being run as a stand-alone script or if it is being required by other scripts. 
+
+```js
+if (require.main === module) {
+  // The file is being executed directly (not with require)
+}
+```
+
+## Module Caching
+
+The cache registry is simply an object that has a property for every required module. Those properties values are the module objects used for each module.
+
+## Node’s Streams
+
+https://nodesource.com/blog/understanding-streams-in-nodejs/
+
+## Node’s Child Processes
+
+## Scaling Node.js Applications
+
+Source: jscomplete
+
+
