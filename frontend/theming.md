@@ -34,7 +34,7 @@ function App() {
 }
 ```
 
-use a function to lazily initialize the variable (useful when the initial state is the result of an expensive computation):
+use a function to lazily initialize the variable (useful when the initial state is the result of an expensive computation). [Here](https://blog.logrocket.com/a-guide-to-usestate-in-react-ecb9952e406c/) you can find more details:
 ```js
 const Message= () => {
    const messageState = useState( () => expensiveComputation() );
