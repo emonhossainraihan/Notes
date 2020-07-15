@@ -9,6 +9,7 @@
 - [Forget password and Reset password](#forget-password-and-reset-password)
 - [Google signup](#google-signup)
 - [Google Analytics](#google-analytics)
+- [Pagination](#pagination)
 
 ## navigation bar with active functionality
 
@@ -547,3 +548,78 @@ setGoogleTags() {
           ></script>
           <script dangerouslySetInnerHTML={this.setGoogleTags()}></script>
 ```
+
+## Pagination
+
+front-end: 
+
+```js
+  const [limit, setLimit] = useState(blogsLimit);
+  const [skip, setSkip] = useState(0);
+  const [size, setSize] = useState(totalBlogs);
+  const [loadedBlogs, setLoadedBlogs] = useState([]);
+
+  const loadMore = () => {
+    let toSkip = skip + limit;
+    listBlogsWithCategoriesAndTags(toSkip, limit).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setLoadedBlogs([...loadedBlogs, ...data.blogs]);
+        setSize(data.size);
+        setSkip(toSkip);
+      }
+    });
+  };
+```
+
+back-end:
+
+```js
+exports.listAllBlogsCategoriesTags = (req, res) => { 
+    let limit = req.body.limit ? parseInt(req.body.limit) : 10;
+    let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+
+    let blogs;
+    let categories;
+    let tags;
+
+    Blog.find({})
+        .populate('categories', '_id name slug')
+        .populate('tags', '_id name slug')
+        .populate('postedBy', '_id name username profile')
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .select('_id title slug excerpt categories tags postedBy createdAt updatedAt')
+        .exec((err, data) => {
+            if (err) {
+                return res.json({
+                    error: errorHandler(err)
+                });
+            }
+            blogs = data; // blogs
+            // get all categories
+            Category.find({}).exec((err, c) => {
+                if (err) {
+                    return res.json({
+                        error: errorHandler(err)
+                    });
+                }
+                categories = c; // categories
+                // get all tags
+                Tag.find({}).exec((err, t) => {
+                    if (err) {
+                        return res.json({
+                            error: errorHandler(err)
+                        });
+                    }
+                    tags = t;
+                    // return all blogs categories tags
+                    res.json({ blogs, categories, tags, size: blogs.length });
+                });
+            });
+        });
+};
+```
+
