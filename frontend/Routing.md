@@ -168,4 +168,6 @@ It means we need to redirect the user when an event happens on that route.
 
 To navigate programmatically we need to take the help of history object which is passed by the react-router.
 
+[here](https://codesandbox.io/s/trusting-elgamal-dzd0s?file=/src/contact.js) is a sample application which I created while writing this note.
+
 
