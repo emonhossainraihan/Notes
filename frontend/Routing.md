@@ -2,6 +2,16 @@
 
 When you need to navigate through a React application with multiple views, you’ll need a router to manage the URLs. React Router takes care of that, keeping your application UI and the URL in sync.
 
+- [Router](#router)
+- [history](#history)
+- [Adding Navigation using Link component](#adding-navigation-using-link-component)
+- [How to add a 404 page in react?](#how-to-add-a-404-page-in-react)
+- [Url Parameters](#url-parameters)
+- [Nested Routes](#nested-routes)
+- [How to implement a nested routing?](#how-to-implement-a-nested-routing)
+- [NavLink](#navlink)
+- [Protecting Routes](#protecting-routes)
+- [Custom Route](#custom-route)
 
 React router gives us three components [Route,Link,BrowserRouter] which help us to implement the routing.
 
