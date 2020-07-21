@@ -265,6 +265,23 @@ export default function MyComponent() {
 ```
 ## HandleChange shortcut 
 ```js
+//creating state
+
+const [values, setValues] = useState({
+    error: '',
+    success: '',
+    formData: '',
+    title: ''
+  });
+  
+  //initialize formData
+  
+ useEffect(() => {
+    setValues({ ...values, formData: new FormData() });
+    initCategories();
+    initTags();
+  }, [router]);
+  
  const handleChange = (name) => (e) => {
     // console.log(e.target.value);
     const value = name === "photo" ? e.target.files[0] : e.target.value;
