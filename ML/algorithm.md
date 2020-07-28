@@ -46,3 +46,6 @@ However, you can use the ? character to change it to lazy matching. "titanic" ma
 
 **Note**<br>
 Parsing HTML with regular expressions should be avoided, but pattern matching an HTML string with regular expressions is completely fine.
+
+### Match Beginning String Patterns
+In an earlier challenge, you used the caret character (^) inside a character set to create a negated character set in the form [^thingsThatWillNotBeMatched]. **Outside of a character set, the caret is used to search for patterns at the beginning of strings.**
