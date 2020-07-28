@@ -72,3 +72,17 @@ Always use the escaped output <%= value %> when dealing with user-submitted valu
 ## File Uploads
 
 Uploading files in HTML forms is a special case that requires an encoding type of "multipart/form-data". See [MDN’s guide to sending form data](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data#A_special_case_sending_files) for more details about what happens with multipart form submissions. [Here](https://stackabuse.com/handling-file-uploads-in-node-js-with-expres-and-multer/) a more in-depth tutorial.
+
+## Secure your Data API from Web Scrapers 
+
+Depending on the nature of your content, you might for example enforce a minimum character limit and sanitize the inputs to avoid wild card operations on the server-side.
+Other common examples in other applications I've seen include
+
+- **Limiting the number of requests per time interval (ie: request cooldowns)**. If your app users aren't intended to make 100 requests a second, don't let them.
+
+- **Paginating your results.** This is a pretty common strategy for various performance-related purposes (for better or worse), but combining it with request cooldowns, it can be pretty nice.
+
+- **Geofencing strategies**, where search results are limited based on a provided location which could be the name of a region, or a pair of latitude, longitude coordinates. Might not apply to you, but if it does, really makes life hard for scrapers.
+
+- **Rate limiting**, where you impose limits on the number of API requests that can be made before no more requests can be made. This is useful if requests must be authenticated with a token, possibly tied to a user account. This won't be effective if I'm hitting the server directly with the same token that your own client uses.
+
