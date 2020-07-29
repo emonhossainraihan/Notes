@@ -203,3 +203,11 @@ function fib(n,prevValues = []) {
 }
 console.log(fib(40))
 ```
+
+## Shallow Clone Objects
+
+Aside from just cloning objects, using object spread and `Object.assign()` lets you add or updated properties when creating the clone
+
+- Using object spread: add or update cloned props `const clone = { ...object,key:value }`
+- Using object rest: using object rest is the ability to skip certain properties when cloning `const { ...clone} = object`
+- Using object.assign(): add or update cloned props `const clone = Object.assign(target, sources)`
