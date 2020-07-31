@@ -1,5 +1,7 @@
 ## Regular Expressions
 
+- [Re](https://www3.ntu.edu.sg/home/ehchua/programming/howto/Regexe.html)
+
 ### Match a Literal String with Different Possibilities
 
 This is powerful to search single strings, but it's limited to only one pattern. You can search for multiple patterns using the alternation or OR operator: |.
