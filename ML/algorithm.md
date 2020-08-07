@@ -52,4 +52,7 @@ Parsing HTML with regular expressions should be avoided, but pattern matching an
 ### Match Beginning String Patterns
 In an earlier challenge, you used the caret character (^) inside a character set to create a negated character set in the form [^thingsThatWillNotBeMatched]. **Outside of a character set, the caret is used to search for patterns at the beginning of strings.**
 
-> Warning: The **repeat** characters (* and +) push outward in both directions (greedy) to match the largest possible string. If you add a `?` character, the + and * chill out a bit ...
+> Warning: The **repeat** characters (* and +) push outward in both directions (greedy) to match the largest possible string. If you add a `?` character, the + and * chill out a bit ... 
+
+### Fine-Tuning String Extraction
+Parentheses are not part of the match - but they tell where to **start** and **stop** what string to extract
