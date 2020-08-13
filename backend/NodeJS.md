@@ -237,4 +237,5 @@ https://nodesource.com/blog/understanding-streams-in-nodejs/
 
 Source: jscomplete
 
+## [A deep dive into queues in Node.js](https://blog.logrocket.com/a-deep-dive-into-queues-in-node-js/) 
 
