@@ -1,2 +1,3 @@
 - https://data-lessons.github.io/library-webscraping-DEPRECATED/02-csssel/
 - https://github.com/MuttakinHasib/react-covid
+- convertkit
