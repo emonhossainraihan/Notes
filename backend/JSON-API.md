@@ -1,0 +1,3 @@
+- https://jsonapi.org/
+- https://slack.engineering/evolving-api-pagination-at-slack/
+- https://www.jeremiahlee.com/posts/json-api-your-smart-default/
