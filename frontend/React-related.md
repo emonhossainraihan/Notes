@@ -1,4 +1,11 @@
 ## Contents
+
+- [what-is-the-difference-between-re-render-and-re-load-the-page-in-react](https://stackoverflow.com/questions/48548042/what-is-the-difference-between-re-render-and-re-load-the-page-in-react)
+
+- https://stackoverflow.com/questions/54899999/can-we-use-export-default-and-module-exports-at-same-time
+
+- https://forum.freecodecamp.org/t/how-to-export-a-function-from-within-a-component-class/254816
+
 <Details>
 <Summary>show all contents:</Summary>
 
