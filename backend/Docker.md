@@ -50,3 +50,13 @@ All volumes can be removed with docker volume prune -f, but remember to back up 
 
 
 
+## microservices course
+
+- `docker run -a <container_id>`: here `-a` make Docker actually watch for output from the container and print it out to your terminal
+- `docker run` = `docker create` + `docker start`
+- `docker ps -all`:
+- `docker system prune`: delete everything related with images and container
+- `docker logs <container_id>`: Gets logs from a container
+- `docker stop <container_id>`: `-> SIGTERM`
+- `docker kill <container_id>`: `-> SIGKILL`
+- `docker exec -it <container_id> <command>`: Execute an additional command in a container
