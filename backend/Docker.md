@@ -59,4 +59,8 @@ All volumes can be removed with docker volume prune -f, but remember to back up 
 - `docker logs <container_id>`: Gets logs from a container
 - `docker stop <container_id>`: `-> SIGTERM`
 - `docker kill <container_id>`: `-> SIGKILL`
-- `docker exec -it <container_id> <command>`: Execute an additional command in a container
+- `docker exec -i(iNPUT)t(FORMATTING) <container_id> <command> sh(CONTROL SEVERAL COMMAND)`: Execute an additional command in a containe
+- `docker run -it <container_name> sh`
+- `docker build -t <docker_id>/<repo/project-name>:<version> .`
+- `docker commit -c 'CMD ["<command>"]' <container_id>`: Take a container snapshot everything and create a new image from the snapshot 
+- `docker run -p <post_on_localhost>:<port_on_container> <image_id/name>`: Docker run with Port Mapping
