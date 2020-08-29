@@ -52,6 +52,8 @@ All volumes can be removed with docker volume prune -f, but remember to back up 
 
 ## microservices course
 
+### Docker
+
 - `docker run -a <container_id>`: here `-a` make Docker actually watch for output from the container and print it out to your terminal
 - `docker run` = `docker create` + `docker start`
 - `docker ps -all`:
@@ -64,3 +66,13 @@ All volumes can be removed with docker volume prune -f, but remember to back up 
 - `docker build -t <docker_id>/<repo/project-name>:<version> .`
 - `docker commit -c 'CMD ["<command>"]' <container_id>`: Take a container snapshot everything and create a new image from the snapshot 
 - `docker run -p <post_on_localhost>:<port_on_container> <image_id/name>`: Docker run with Port Mapping
+
+### Kubernetes
+
+- **Kubernetes Cluster**: A collections of nodes + a master to mage them
+- **Node**: A virtual machine that will run our containers
+- **Pod**: More or less a running container 
+- **Deployment**: Monitors a set of pods, make sure they are running and restarts them if they crash
+- **Service**: Provides an easy-to-remember URL to access a running container
+- `kubectl get pods`:
+- `kubectl exec -it <pod_name> <cmd>`:
