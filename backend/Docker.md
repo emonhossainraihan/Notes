@@ -54,6 +54,8 @@ All volumes can be removed with docker volume prune -f, but remember to back up 
 
 ### Docker
 
+#### Commands
+
 - `docker run -a <container_id>`: here `-a` make Docker actually watch for output from the container and print it out to your terminal
 - `docker run` = `docker create` + `docker start`
 - `docker ps -all`:
@@ -83,3 +85,7 @@ All volumes can be removed with docker volume prune -f, but remember to back up 
 - `kubectl delete pod <pod_name>`: Deletes the given pod
 - `kubectl apply -f <config_file_name>`: Tells kubernetes to process the config 
 - `kubectl describe pod <pod_name>`: Print out some information about the running pod
+
+### Some Notes
+
+> Every time when you change something inside code you need to go through `Build image`>`push image`>`rollout deployment/pod` again and again!!!
