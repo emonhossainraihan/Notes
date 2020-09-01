@@ -50,7 +50,7 @@ All volumes can be removed with docker volume prune -f, but remember to back up 
 
 
 
-## microservices course
+# Microservices course
 
 ### Docker
 
@@ -89,3 +89,14 @@ All volumes can be removed with docker volume prune -f, but remember to back up 
 ### Some Notes
 
 > Every time when you change something inside code you need to go through `Build image`>`push image`>`rollout deployment/pod` again and again!!!
+
+### YAML (Yet Another Markup Language)
+
+There are a few required fields in every Kubernetes YAML file:
+
+- **apiVersion**: “Which version of the Kubernetes API you’re using to create this object.”
+- **kind**: “What kind of object you want to create.” list all object: `kubectl api-resources`
+- **metadata**: “Data that helps uniquely identify the object, including a name string, UID, and optional namespace.”
+- **spec**: The spec field is where you'll describe the object in greater detail, and you'll need to do so using the Kubernetes API.
+
+**Skaffold** do all the build, push and restart work but still you need to restart your node application/react application inside the container. Likely we use `nodemon` and `crea-react-app` which done the process.
