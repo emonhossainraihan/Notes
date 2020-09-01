@@ -99,4 +99,4 @@ There are a few required fields in every Kubernetes YAML file:
 - **metadata**: “Data that helps uniquely identify the object, including a name string, UID, and optional namespace.”
 - **spec**: The spec field is where you'll describe the object in greater detail, and you'll need to do so using the Kubernetes API.
 
-**Skaffold** do all the build, push and restart work but still you need to restart your node application/react application inside the container. Likely we use `nodemon` and `crea-react-app` which done the process.
+**Skaffold** do all the build, push and restart work but still you need to restart your node application/react application inside the container. Likely we use `nodemon` and `crea-react-app` which done the process. Skaffold is an excellent tool for creating pipelines to deploy applications in Kubernetes with developers’ needs in mind.
