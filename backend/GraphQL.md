@@ -119,4 +119,9 @@ app.get('/posts', function (req, res) {
 সার্ভারটি একটি নির্দিষ্ট পাথ এ একটি নির্দিষ্ট রিকুয়েষ্টকে প্রসেস করে কিছু একটা রিটার্ন করে। এই ক্ষেত্রে ডেটাবেজ থেকে সব ইউজার এর ডেটা ফেচ করে একটা অ্যারে আকারে রির্টান করে। 
 
 
+https://www.apollographql.com/blog/graphql-vs-rest-5d425123e34b/
 
+https://medium.com/%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A7%8B%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE%E0%A6%BF%E0%A6%82-%E0%A6%AA%E0%A6%BE%E0%A6%A4%E0%A6%BE/%E0%A6%8F%E0%A6%AA%E0%A6%BF%E0%A6%86%E0%A6%87-%E0%A6%95%E0%A6%BF-%E0%A6%8F%E0%A6%AC%E0%A6%82-%E0%A6%86%E0%A6%AA%E0%A6%A8%E0%A6%BE%E0%A6%B0-%E0%A6%A6%E0%A7%88%E0%A6%A8%E0%A6%A8%E0%A7%8D%E0%A6%A6%E0%A6%BF%E0%A6%A8-%E0%A6%9C%E0%A7%80%E0%A6%AC%E0%A6%A8%E0%A7%87-%E0%A6%8F%E0%A6%AA%E0%A6%BF%E0%A6%86%E0%A6%87-957304400766
+
+
+https://medium.com/devgorilla/what-is-graphql-f0902a959e4
