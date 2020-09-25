@@ -1,3 +1,4 @@
+[Original Question](https://stackoverflow.com/a/52717385/12503497)
 ## [A Guide to Common Resolver Patterns](https://v1.prisma.io/tutorials/a-guide-to-common-resolver-patterns-ct08/#scenario:-implementing-relations-with-prisma-client)
 
 Scenario: Add a custom/computed field to a Prisma model via the application schema (Prisma bindings)
