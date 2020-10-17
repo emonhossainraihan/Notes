@@ -24,6 +24,12 @@ a type that deﬁnes the entry point to possibilities.
 A query root has to be deﬁned on a GraphQL schema, but two other types of
 roots that can be deﬁned: the Mutation, and the Subscription roots. 
 
+This query consists of different parts
+
+- operation type 
+- name 
+- selection set 
+
 ## Variables
 While we are on the subject of arguments, it is good to note that GraphQL
 queries can also deﬁne variables to be used within a query. This allows clients
@@ -65,6 +71,40 @@ query{
     }
 }
 ```
+## Fragment
+Each fragment contains the name of the fragment, to what type we are applying this fragment and the selection set.
+
+```js
+query getUsers {
+    admins: users(role: admin) {
+        ...userFields
+    }
+    accountants: users(role: accountant) {
+        ...userFields
+    }
+}
+fragment userFields on User {
+    id
+    firstName
+    lastName
+    phone
+    username
+}
+```
+## Abstract types
+In the GraphQL specification we are able to use [two abstract types](https://www.apollographql.com/docs/apollo-server/schema/unions-interfaces/):
+
+- interfaces
+- unions
+
+> The interface is a structure that enforces certain properties on the object or class that implements the corresponding interface
+
+when applying interface we are basically adding additional node above our types, so that we are able to access them as one entity.
+Let's say that we would like to access all the types from our schema as one single entity called Node.
+
+![](https://atheros.ai/articles/graphql-interfaces-and-unions-how-to-design-graphql-schema/node_interface.webp)
+
+https://atheros.ai/
 
 ## Mutations
 
