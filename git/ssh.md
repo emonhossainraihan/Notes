@@ -1,0 +1,4 @@
+- ssh-keygen
+- add *.pub to the github SSH key
+- eval `ssh-agent` use backtick
+- ssh-add <drag-drop the private key file>  
