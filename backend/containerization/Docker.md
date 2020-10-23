@@ -90,6 +90,8 @@ All volumes can be removed with docker volume prune -f, but remember to back up 
 
 > Every time when you change something inside code you need to go through `Build image`>`push image`>`rollout deployment/pod` again and again!!!
 
+> `... -v target_volume:destination_volume:mode ...` mount target_volume inside container
+
 ### YAML (Yet Another Markup Language)
 
 There are a few required fields in every Kubernetes YAML file:
