@@ -531,3 +531,5 @@ const getData2 = async function () {
   }
 };
 ```
+
+[One interesting article](https://css-tricks.com/the-flavors-of-object-oriented-programming-in-javascript/)
