@@ -154,4 +154,6 @@ In contrast to signed and unsecured JWTs, encrypted JWTs have a different compac
 
 ![](https://miro.medium.com/max/700/1*-qEUNh7EYxBbnnt0Xk997g.png)
 
+![](https://i.imgur.com/xmj6cJb.png)
+
 [jwt-jws-and-jwe](https://medium.facilelogin.com/jwt-jws-and-jwe-for-not-so-dummies-b63310d201a3)
