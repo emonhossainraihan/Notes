@@ -1,3 +1,20 @@
+vanila CSS:
+
+```css
+html[theme='dark-mode'] img,
+picture,
+video{
+    filter: invert(1) hue-rotate(180deg);
+}
+
+// class to reverse the effect form specific tag
+
+.invert {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+```
+
 ```js
 //! theming
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
