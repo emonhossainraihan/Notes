@@ -299,4 +299,14 @@ The route renders the Admin component if the user is logged in. Otherwise, the u
 [blog](https://www.sitepoint.com/react-router-complete-guide/)
 [here](https://codesandbox.io/s/trusting-elgamal-dzd0s?file=/src/contact.js) is a sample application which I created while writing this note.
 
+## Can't find/ Page not found Error 
 
+If you've deployed your first React app that uses React Router or the HTML5 history API, and routes entered into the browser directly return a page not found error.
+
+```js
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/*', function(req,res) {
+		res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+```
