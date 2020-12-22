@@ -9,3 +9,7 @@ This is basically as low-level as you can get — short of manually generati
 Each of these libraries essentially works the same way: take the database credentials, instantiate a new database instance, connect to the database, and send it queries in the form of a string and asynchronously handle the result.
 
 https://blog.logrocket.com/why-you-should-avoid-orms-with-examples-in-node-js-e0baab73fa5/
+
+To create a record you can define an instance of the model and then call `save()`. You can also use create() to define the model instance at the same time as you save it.
+
+https://developer.mozilla.org/pt-BR/docs/Learn/Server-side/Express_Nodejs/mongoose#Usando_modelos
