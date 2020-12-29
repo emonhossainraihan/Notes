@@ -49,3 +49,23 @@
 }
 ```
 
+If you have any issue with Import Cost Extension then use the following configuration:
+
+```json
+{
+  // File extensions to be parsed by the Typescript parser
+  "importCost.typescriptExtensions": ["\\.tsx?$"],
+
+  // File extensions to be parsed by the Javascript parser
+  "importCost.javascriptExtensions": ["\\.jsx?$"],
+  // Which bundle size to display
+  "importCost.bundleSizeDecoration": "both",
+
+  // Display the 'calculating' decoration
+  "importCost.showCalculatingDecoration": true,
+
+  // Print debug messages in output channel
+  "importCost.debug": true,
+  "importCost.timeout": 432000
+}
+```
