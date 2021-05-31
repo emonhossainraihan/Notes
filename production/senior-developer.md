@@ -85,3 +85,50 @@
 ## JIT vs AoT(Ahead-of-Time)
 
 ## PWA whatwecando.today
+
+## Security
+
+### Injection
+
+https://www.hacksplaining.com
+ 
+- Sanitize input
+- Parametrize Queries: Object relational Mapper like knex.js
+
+ ```js
+function sqlSelect(name, email, id) {
+  if (name == something) {
+    // do this
+  }
+}
+```
+
+```
+ 
+```
+
+## PostgreSQL
+ 
+The first question many ask is, “What is the default password for the user postgres?” The answer is easy… there isn’t a default password. The default authentication mode for PostgreSQL is set to ident.
+ 
+The root account is disabled by default in Ubuntu, so there is no root password, that's why su fails with an authentication error `sudo su`. 
+
+```
+  emonhossain@xenon  ~  psql                
+psql: error: FATAL:  role "emonhossain" does not exist
+ ✘ emonhossain@xenon  ~  su - postgres        
+Password: 
+su: Authentication failure
+ ✘ emonhossain@xenon  ~  sudo -i              
+xenon# psql
+psql: error: FATAL:  role "root" does not exist
+xenon# exit
+ ✘ emonhossain@xenon  ~  sudo su - postgres        
+postgres@xenon:~$ psql
+psql (12.6 (Ubuntu 12.6-0ubuntu0.20.04.1))
+Type "help" for help.
+
+postgres=# \q
+postgres@xenon:~$ exit
+logout
+``` 
