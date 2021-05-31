@@ -103,10 +103,16 @@ function sqlSelect(name, email, id) {
 }
 ```
 
-```
- 
-```
+## code 
 
+- frontend: https://github.com/aneagoie/security-client-exercise
+- backend: https://github.com/aneagoie/security-server-exercise 
+
+## Logging
+
+- `npm i winston`
+- `npm i morgan`
+ 
 ## PostgreSQL
  
 The first question many ask is, “What is the default password for the user postgres?” The answer is easy… there isn’t a default password. The default authentication mode for PostgreSQL is set to ident.
