@@ -138,3 +138,22 @@ postgres=# \q
 postgres@xenon:~$ exit
 logout
 ``` 
+
+## Secure Headers
+
+1. If you are new to HTTP: https://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177
+2. To learn a little bit more about HTTP Headers: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+3. HTTP Header Fields: https://www.tutorialspoint.com/http/http_header_fields.htm
+4. Helmet package documentation: https://github.com/helmetjs/helmet
+
+## Access Control 
+ 
+> Principal of least privilege
+ 
+## Data Management
+
+bcrypt, scrypt, Aragon2, pgcrypto: encrypt a few columns
+
+https://rangle.io/blog/how-to-store-user-passwords-and-overcome-security-threats-in-2017/
+ 
+https://watchyourhack.com/
