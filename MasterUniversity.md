@@ -115,3 +115,13 @@
 - Applied Mathematics:
 - Discrete Geometric Analysis
 
+## Strengthening Your Graduate Application
+
+- Getting Started 
+- Preparing to Apply
+- Testing e.g., GRE
+- Qualifications
+- Application Essentials 
+  - prepare questions regarding prospective schools and programs   
+- Financial Aid
+- Once accepted, what next
