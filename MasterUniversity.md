@@ -1,3 +1,13 @@
+## professors-to-know
+
+- https://www.onlineengineeringprograms.com/data-science/20-ds-professors-to-know
+- https://www.ams.jhu.edu/~spall/Personal/
+
+
+## students
+
+- https://laurenmarietta.github.io/contact.html
+
 ## [MIT](https://math.mit.edu/research/index.php)
 
 ### Pure mathematics Fields
